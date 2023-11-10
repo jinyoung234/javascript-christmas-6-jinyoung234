@@ -1,5 +1,5 @@
-import systemErrorHandler from '../errors/systemErrorHandler.js';
 import InputView from '../views/InputView.js';
+import systemErrorHandler from '../errors/systemErrorHandler.js';
 
 class PlannerController {
   #inputView = InputView;
@@ -8,9 +8,14 @@ class PlannerController {
     return systemErrorHandler.retryOnErrors(this.#inputView.readVisitDate.bind(this.#inputView));
   }
 
+  async #processInputMenuInfo() {
+    return systemErrorHandler.retryOnErrors(this.#inputView.readMenuInfo.bind(this.#inputView));
+  }
+
   async play() {
     const visitDate = await this.#processInputVisitDate();
-    console.log(visitDate);
+    const menuInfo = await this.#processInputMenuInfo();
+    console.log(menuInfo);
   }
 }
 
