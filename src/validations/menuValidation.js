@@ -1,4 +1,4 @@
-import { menuTable } from '../constants/system.js';
+import { PROMOTION_MENU_TABLE } from '../constants/system.js';
 import { startValidation } from './utils/startValidation.js';
 
 export const INVALID_MENU_MESSAGE = '유효하지 않은 주문입니다. 다시 입력해 주세요.';
@@ -12,7 +12,7 @@ const menuValidation = Object.freeze({
     menuCategory: Object.freeze({
       errorMessage: INVALID_MENU_MESSAGE,
       isValid() {
-        return Object.keys(menuTable).some((menuCategory) =>
+        return Object.keys(PROMOTION_MENU_TABLE).some((menuCategory) =>
           ['애피타이저', '메인', '디저트', '음료'].includes(menuCategory),
         );
       },
@@ -21,12 +21,9 @@ const menuValidation = Object.freeze({
     existMenu: Object.freeze({
       errorMessage: INVALID_MENU_MESSAGE,
       isValid(orders) {
-        return orders.some(([menuName]) => {
-          const allMenus = Object.values(menuTable).flatMap((section) =>
-            Object.values(section).map(({ name }) => name),
-          );
-          return allMenus.includes(menuName);
-        });
+        const allMenus = Object.values(PROMOTION_MENU_TABLE).flatMap((section) => section);
+
+        return orders.some(([menuName]) => allMenus.some((menu) => menu.name === menuName));
       },
     }),
 
@@ -67,7 +64,7 @@ const menuValidation = Object.freeze({
       errorMessage: '음료만 주문하는 것은 불가능합니다. 다시 입력해 주세요.',
       isValid(orders) {
         return !orders.every(([menuName]) => {
-          const drinkMenus = Object.values(menuTable['음료']).map(({ name }) => name);
+          const drinkMenus = Object.values(PROMOTION_MENU_TABLE['음료']).map(({ name }) => name);
           return drinkMenus.includes(menuName);
         });
       },
