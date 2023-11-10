@@ -1,8 +1,11 @@
 import InputView from '../views/InputView.js';
 import systemErrorHandler from '../errors/systemErrorHandler.js';
+import eventResultService from '../service/eventResultService.js';
 
 class PlannerController {
   #inputView = InputView;
+
+  #service = eventResultService;
 
   async #processInputVisitDate() {
     return systemErrorHandler.retryOnErrors(this.#inputView.readVisitDate.bind(this.#inputView));
@@ -15,7 +18,7 @@ class PlannerController {
   async play() {
     const visitDate = await this.#processInputVisitDate();
     const menuInfo = await this.#processInputMenuInfo();
-    console.log(menuInfo);
+    this.#service.createEventResult({ visitDate, menuInfo });
   }
 }
 
