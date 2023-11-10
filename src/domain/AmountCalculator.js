@@ -1,27 +1,25 @@
-import { menuTable } from '../constants/system.js';
+import { PROMOTION_MENU_TABLE } from '../constants/system.js';
+import MenuFinder from './MenuFinder.js';
 
 class AmountCalculator {
   #menuInfo;
 
-  #menuTable = menuTable;
+  #menuFinder = new MenuFinder(PROMOTION_MENU_TABLE);
 
   constructor(menuInfo) {
     this.#menuInfo = menuInfo;
   }
 
-  #findPriceByName(menuName) {
-    const allMenus = Object.values(this.#menuTable).flatMap((menu) => Object.values(menu));
-    const matchMenu = allMenus.find((menuInfo) => menuInfo?.name === menuName);
-    return matchMenu?.price ?? null;
+  static from(menuInfo) {
+    return new AmountCalculator(menuInfo);
   }
 
-  calculateAmount(discountAmount = 0) {
-    const totalAmount = this.#menuInfo.reduce((prevTotalAmount, [menuItemName, quantity]) => {
-      const itemPrice = this.#findPriceByName(menuItemName);
-      return prevTotalAmount + itemPrice * quantity;
-    }, 0);
+  calculateAmount() {
+    return this.#menuInfo.reduce((prevTotalAmount, [menuItemName, quantity]) => {
+      const matchingMenu = this.#menuFinder.findByMenuName(menuItemName);
 
-    return totalAmount - discountAmount;
+      return !matchingMenu ? prevTotalAmount : prevTotalAmount + matchingMenu.price * quantity;
+    }, 0);
   }
 }
 

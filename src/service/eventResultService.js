@@ -1,10 +1,13 @@
 import AmountCalculator from '../domain/AmountCalculator.js';
+import EventReward from '../domain/EventReward.js';
+import RewardCalculator from '../domain/RewardCalculator.js';
 
 const eventResultService = {
   createEventResult({ visitDate, menuInfo }) {
-    const amountCalculator = new AmountCalculator(menuInfo);
-    const beforeDiscountOrderAmount = amountCalculator.calculateAmount();
-    console.log(beforeDiscountOrderAmount);
+    const totalOrderAmount = AmountCalculator.from(menuInfo).calculateAmount();
+    const rewardInfo = EventReward.from({ visitDate, menuInfo, totalOrderAmount }).createReward();
+    const rewardCalculator = RewardCalculator.of(rewardInfo, totalOrderAmount);
+    const rewardAmountInfo = rewardCalculator.calculateRewardAmountInfo();
   },
 };
 
