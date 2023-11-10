@@ -1,5 +1,11 @@
+import PlannerController from './controller/PlannerController.js';
+
 class App {
-  async run() {}
+  #controller = new PlannerController();
+
+  async run() {
+    await this.#controller.play();
+  }
 }
 
 export default App;
