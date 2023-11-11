@@ -1,15 +1,10 @@
-import RewardCalculator from '../../src/domain/RewardCalculator.js';
+import benefitAmountCalculation from '../../src/domain/RewardCalculator.js';
 
-const createRewardAmountInfo = (rewardInfo, totalOrderAmount) => {
-  const rewardCalculator = RewardCalculator.of(rewardInfo, totalOrderAmount);
-  return rewardCalculator.calculateRewardAmountInfo();
-};
-
-describe('RewardCalculator 보상 계산 테스트', () => {
-  describe('보상 총액 계산', () => {
+describe('총 혜택 금액 및 예상 지출 금액 계산 테스트', () => {
+  describe('총 혜택 금액 계산', () => {
     test.each([
       {
-        rewardInfo: {
+        benefitInfo: {
           xmasDiscountAmount: 1200,
           weekDayDiscountAmount: 0,
           specialDiscountAmount: 1000,
@@ -19,7 +14,7 @@ describe('RewardCalculator 보상 계산 테스트', () => {
         expectedTotalRewardAmount: 27200,
       },
       {
-        rewardInfo: {
+        benefitInfo: {
           xmasDiscountAmount: 0,
           weekDayDiscountAmount: 2000,
           specialDiscountAmount: 0,
@@ -29,10 +24,13 @@ describe('RewardCalculator 보상 계산 테스트', () => {
         expectedTotalRewardAmount: 17000,
       },
     ])(
-      '보상 총액은 $expectedTotalRewardAmount원 이다.',
-      ({ rewardInfo, totalOrderAmount, expectedTotalRewardAmount }) => {
+      '총 혜택 금액은 $expectedTotalRewardAmount원 이다.',
+      ({ benefitInfo, totalOrderAmount, expectedTotalRewardAmount }) => {
         // given - when
-        const { totalRewardAmount } = createRewardAmountInfo(rewardInfo, totalOrderAmount);
+        const { totalRewardAmount } = benefitAmountCalculation.createRewardAmountInfo({
+          benefitInfo,
+          totalOrderAmount,
+        });
 
         // then
         expect(totalRewardAmount).toBe(expectedTotalRewardAmount);
@@ -43,7 +41,7 @@ describe('RewardCalculator 보상 계산 테스트', () => {
   describe('예상 결제 금액 계산', () => {
     test.each([
       {
-        rewardInfo: {
+        benefitInfo: {
           xmasDiscountAmount: 1200,
           weekDayDiscountAmount: 0,
           specialDiscountAmount: 1000,
@@ -53,7 +51,7 @@ describe('RewardCalculator 보상 계산 테스트', () => {
         expectedExpectPaymentAmount: 97800,
       },
       {
-        rewardInfo: {
+        benefitInfo: {
           xmasDiscountAmount: 0,
           weekDayDiscountAmount: 2000,
           specialDiscountAmount: 0,
@@ -64,9 +62,12 @@ describe('RewardCalculator 보상 계산 테스트', () => {
       },
     ])(
       '예상 결제 금액은 $expectedExpectPaymentAmount원 이다.',
-      ({ rewardInfo, totalOrderAmount, expectedExpectPaymentAmount }) => {
+      ({ benefitInfo, totalOrderAmount, expectedExpectPaymentAmount }) => {
         // given - when
-        const { expectPaymentAmount } = createRewardAmountInfo(rewardInfo, totalOrderAmount);
+        const { expectPaymentAmount } = benefitAmountCalculation.createRewardAmountInfo({
+          benefitInfo,
+          totalOrderAmount,
+        });
 
         // then
         expect(expectPaymentAmount).toBe(expectedExpectPaymentAmount);
