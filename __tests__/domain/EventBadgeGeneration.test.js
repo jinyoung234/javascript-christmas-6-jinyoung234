@@ -1,4 +1,4 @@
-import EventBadgeGenerator from '../../src/domain/EventBadgeGenerator.js';
+import eventBadgeGeneration from '../../src/domain/EventBadgeGeneration.js';
 
 describe('이벤트 뱃지 생성 테스트', () => {
   test.each([
@@ -12,11 +12,8 @@ describe('이벤트 뱃지 생성 테스트', () => {
   ])(
     '보상금액 $totalRewardAmount원에 대한 배지는 $expectedBadge 여야 한다',
     ({ totalRewardAmount, expectedBadge }) => {
-      // given
-      const badgeGenerator = EventBadgeGenerator.from(totalRewardAmount);
-
-      // when
-      const badge = badgeGenerator.generateBadge();
+      // given - when
+      const badge = eventBadgeGeneration.generateBadge(totalRewardAmount);
 
       // then
       expect(badge === expectedBadge).toBeTruthy();
