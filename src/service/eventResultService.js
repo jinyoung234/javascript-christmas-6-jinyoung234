@@ -9,7 +9,7 @@ const eventResultService = {
     const rewardInfo = EventReward.from({ visitDate, menuInfo, totalOrderAmount }).createReward();
     const rewardCalculator = RewardCalculator.of(rewardInfo, totalOrderAmount);
     const rewardAmountInfo = rewardCalculator.calculateRewardAmountInfo();
-    const eventBadge = EventBadgeGenerator.from(rewardInfo.totalRewardAmount).generateBadge();
+    const eventBadge = EventBadgeGenerator.from(rewardAmountInfo.totalRewardAmount).generateBadge();
 
     return { totalOrderAmount, rewardAmountInfo, rewardInfo, eventBadge };
   },
