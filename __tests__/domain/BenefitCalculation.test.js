@@ -1,13 +1,9 @@
-import EventReward from '../../src/domain/EventReward';
+import benefitCalculation from '../../src/domain/BenefitCalculation';
 
-describe('혜택 내역 계산 테스트', () => {
-  const createRewardInfo = (ordererInfo) => {
-    // given
-    const eventReward = EventReward.from(ordererInfo);
+describe('프로모션 내 혜택 내역 계산 테스트', () => {
+  // given
+  const createRewardInfo = (ordererInfo) => benefitCalculation.calculateBenefit(ordererInfo);
 
-    // when
-    return eventReward.createReward();
-  };
   const createOrdererInfoTestCase = ({
     visitDate = '2023-12-03',
     menuInfo = [
@@ -22,19 +18,7 @@ describe('혜택 내역 계산 테스트', () => {
     menuInfo,
     totalOrderAmount,
   });
-  const createRewardInfoTestCase = ({
-    xmasDiscountAmount = 1200,
-    weekDayDiscountAmount = 2 * 2023,
-    weekendDiscountAmount = 0,
-    specialDiscountAmount = 1000,
-    giftAmount = 25000,
-  } = {}) => ({
-    xmasDiscountAmount,
-    weekDayDiscountAmount,
-    weekendDiscountAmount,
-    specialDiscountAmount,
-    giftAmount,
-  });
+
   describe('평일 할인 적용 여부 테스트', () => {
     test.each([
       {
@@ -43,7 +27,16 @@ describe('혜택 내역 계산 테스트', () => {
           ...createOrdererInfoTestCase(),
         },
         expectedDiscountInfo: {
-          ...createRewardInfoTestCase(),
+          weekDayDiscountAmount: 2 * 2023,
+        },
+      },
+      {
+        description: '12월 2일은 주말이기 때문에 할인이 적용되지 않는다.',
+        ordererInfo: {
+          ...createOrdererInfoTestCase({ visitDate: '2023-12-02' }),
+        },
+        expectedDiscountInfo: {
+          weekDayDiscountAmount: 0,
         },
       },
     ])('$description', ({ ordererInfo, expectedDiscountInfo }) => {
@@ -51,7 +44,7 @@ describe('혜택 내역 계산 테스트', () => {
       const rewardInfo = createRewardInfo(ordererInfo);
 
       // then
-      expect(rewardInfo).toStrictEqual(expectedDiscountInfo);
+      expect(rewardInfo.weekDayDiscountAmount).toBe(expectedDiscountInfo.weekDayDiscountAmount);
     });
   });
 
@@ -63,12 +56,16 @@ describe('혜택 내역 계산 테스트', () => {
           ...createOrdererInfoTestCase({ visitDate: '2023-12-02' }),
         },
         expectedDiscountInfo: {
-          ...createRewardInfoTestCase({
-            xmasDiscountAmount: 1100,
-            specialDiscountAmount: 0,
-            weekDayDiscountAmount: 0,
-            weekendDiscountAmount: 2023 * 2,
-          }),
+          weekendDiscountAmount: 2023 * 2,
+        },
+      },
+      {
+        description: '12월 3일은 평일이기 때문에 할인이 적용되지 않는다.',
+        ordererInfo: {
+          ...createOrdererInfoTestCase(),
+        },
+        expectedDiscountInfo: {
+          weekendDiscountAmount: 0,
         },
       },
     ])('$description', ({ ordererInfo, expectedDiscountInfo }) => {
@@ -76,14 +73,14 @@ describe('혜택 내역 계산 테스트', () => {
       const rewardInfo = createRewardInfo(ordererInfo);
 
       // then
-      expect(rewardInfo).toEqual(expectedDiscountInfo);
+      expect(rewardInfo.weekendDiscountAmount).toBe(expectedDiscountInfo.weekendDiscountAmount);
     });
   });
 
   describe('12월 이벤트 적용 여부 테스트', () => {
     test.each([
       {
-        description: '11월 30일은 할인이 적용되지 안된다.',
+        description: '2023년 11월 30일은 12월 이전 이므로 할인이 적용되지 안된다.',
         ordererInfo: {
           visitDate: new Date('2023-11-30'),
           menuInfo: [
@@ -118,14 +115,14 @@ describe('혜택 내역 계산 테스트', () => {
       const rewardInfo = createRewardInfo(ordererInfo);
 
       // then
-      expect(rewardInfo).toEqual(expectedDiscountInfo);
+      expect(rewardInfo).toStrictEqual(expectedDiscountInfo);
     });
   });
 
   describe('증정 이벤트 적용 여부 테스트', () => {
     test.each([
       {
-        description: '88000원은 샴페인이 증정되지 않는다.',
+        description: '88000원은 12만원 미만이므로 샴페인이 증정되지 않는다.',
         ordererInfo: {
           visitDate: new Date('2023-12-02'),
           menuInfo: [
@@ -136,19 +133,23 @@ describe('혜택 내역 계산 테스트', () => {
           totalOrderAmount: 88000,
         },
         expectedDiscountInfo: {
-          xmasDiscountAmount: 1100,
-          weekDayDiscountAmount: 0,
-          weekendDiscountAmount: 1 * 2023,
-          specialDiscountAmount: 0,
           giftAmount: 0,
+        },
+      },
+      {
+        description: '142000원은 12만원 초과이므로 샴페인이 증정된다.',
+        ordererInfo: {
+          ...createOrdererInfoTestCase(),
+        },
+        expectedDiscountInfo: {
+          giftAmount: 25000,
         },
       },
     ])('$description', ({ ordererInfo, expectedDiscountInfo }) => {
       // given - when
       const rewardInfo = createRewardInfo(ordererInfo);
-
       // then
-      expect(rewardInfo).toEqual(expectedDiscountInfo);
+      expect(rewardInfo.giftAmount).toBe(expectedDiscountInfo.giftAmount);
     });
   });
 
@@ -161,10 +162,6 @@ describe('혜택 내역 계산 테스트', () => {
         },
         expectedDiscountInfo: {
           xmasDiscountAmount: 0,
-          weekDayDiscountAmount: 2 * 2023,
-          weekendDiscountAmount: 0,
-          specialDiscountAmount: 0,
-          giftAmount: 25000,
         },
       },
       {
@@ -174,10 +171,6 @@ describe('혜택 내역 계산 테스트', () => {
         },
         expectedDiscountInfo: {
           xmasDiscountAmount: 3300,
-          weekDayDiscountAmount: 2 * 2023,
-          weekendDiscountAmount: 0,
-          specialDiscountAmount: 1000,
-          giftAmount: 25000,
         },
       },
     ])('$description', ({ ordererInfo, expectedDiscountInfo }) => {
@@ -185,7 +178,7 @@ describe('혜택 내역 계산 테스트', () => {
       const rewardInfo = createRewardInfo(ordererInfo);
 
       // then
-      expect(rewardInfo).toEqual(expectedDiscountInfo);
+      expect(rewardInfo.xmasDiscountAmount).toBe(expectedDiscountInfo.xmasDiscountAmount);
     });
   });
 
@@ -194,59 +187,44 @@ describe('혜택 내역 계산 테스트', () => {
       {
         description: '12월 3일은 특별 할인 이벤트가 적용된다.',
         ordererInfo: createOrdererInfoTestCase({ visitDate: '2023-12-03' }),
-        expectedDiscountInfo: createRewardInfoTestCase({ specialDiscountAmount: 1000 }),
+        expectedDiscountInfo: { specialDiscountAmount: 1000 },
       },
       {
         description: '12월 10일은 특별 할인 이벤트가 적용된다.',
         ordererInfo: createOrdererInfoTestCase({ visitDate: '2023-12-10' }),
-        expectedDiscountInfo: createRewardInfoTestCase({
-          xmasDiscountAmount: 1900,
-        }),
+        expectedDiscountInfo: { specialDiscountAmount: 1000 },
       },
       {
         description: '12월 17일은 특별 할인 이벤트가 적용된다.',
         ordererInfo: createOrdererInfoTestCase({ visitDate: '2023-12-17' }),
-        expectedDiscountInfo: createRewardInfoTestCase({
-          xmasDiscountAmount: 2600,
-        }),
+        expectedDiscountInfo: { specialDiscountAmount: 1000 },
       },
       {
         description: '12월 24일은 특별 할인 이벤트가 적용된다.',
         ordererInfo: createOrdererInfoTestCase({ visitDate: '2023-12-24' }),
-        expectedDiscountInfo: createRewardInfoTestCase({
-          xmasDiscountAmount: 3300,
-        }),
+        expectedDiscountInfo: { specialDiscountAmount: 1000 },
       },
       {
         description: '12월 25일은 특별 할인 이벤트가 적용된다.',
         ordererInfo: createOrdererInfoTestCase({ visitDate: '2023-12-25' }),
-        expectedDiscountInfo: createRewardInfoTestCase({
-          xmasDiscountAmount: 3400,
-        }),
+        expectedDiscountInfo: { specialDiscountAmount: 1000 },
       },
       {
         description: '12월 31일은 특별 할인 이벤트가 적용된다.',
         ordererInfo: createOrdererInfoTestCase({ visitDate: '2023-12-31' }),
-        expectedDiscountInfo: createRewardInfoTestCase({
-          xmasDiscountAmount: 0,
-        }),
+        expectedDiscountInfo: { specialDiscountAmount: 1000 },
       },
       {
         description: '12월 30일은 특별 할인 이벤트가 적용되지 않는다.',
         ordererInfo: createOrdererInfoTestCase({ visitDate: '2023-12-30' }),
-        expectedDiscountInfo: createRewardInfoTestCase({
-          xmasDiscountAmount: 0,
-          specialDiscountAmount: 0,
-          weekDayDiscountAmount: 0,
-          weekendDiscountAmount: 4046,
-        }),
+        expectedDiscountInfo: { specialDiscountAmount: 0 },
       },
     ])('$description', ({ ordererInfo, expectedDiscountInfo }) => {
       // given - when
       const rewardInfo = createRewardInfo(ordererInfo);
 
       // then
-      expect(rewardInfo).toEqual(expectedDiscountInfo);
+      expect(rewardInfo.specialDiscountAmount).toBe(expectedDiscountInfo.specialDiscountAmount);
     });
   });
 });
