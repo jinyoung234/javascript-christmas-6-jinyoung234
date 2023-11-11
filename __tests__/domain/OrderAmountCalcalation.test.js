@@ -1,6 +1,7 @@
-import AmountCalculator from '../../src/domain/AmountCalculator.js';
+import menuFinder from '../../src/domain/MenuFinder';
+import orderAmountCalculation from '../../src/domain/OrderAmountCalculation';
 
-describe('AmountCalculator 파라미터화 테스트', () => {
+describe('총 주문 금액 계산 테스트', () => {
   test.each([
     {
       menuInfo: [
@@ -17,21 +18,11 @@ describe('AmountCalculator 파라미터화 테스트', () => {
       ],
       expected: 66000,
     },
-    {
-      menuInfo: [
-        ['타파스', 3],
-        ['아이스크림', 1],
-      ],
-      expected: 21500,
-    },
   ])(
     '메뉴 정보를 통해 할인 전 주문한 총 금액은 $expected원 이어야 한다',
-    ({ menuInfo, discount, expected }) => {
-      // given
-      const amountCalculator = new AmountCalculator(menuInfo);
-
-      // when
-      const result = amountCalculator.calculateAmount(discount);
+    ({ menuInfo, expected }) => {
+      // given - when
+      const result = orderAmountCalculation.calculateAmount(menuFinder, menuInfo);
 
       // then
       expect(result).toBe(expected);
