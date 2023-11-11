@@ -1,6 +1,5 @@
-import { PROMOTION_MENU_TABLE } from '../constants/system.js';
-import MenuFinder from './MenuFinder.js';
 import EventPeriodChecker from './EventPeriodChecker.js';
+import findingMenu from './MenuFinder.js';
 
 class EventReward {
   #discountInfo = {
@@ -61,9 +60,7 @@ class EventReward {
     if (!days.includes(visitDay)) return 0;
 
     return menuInfo
-      .filter(([menuName]) =>
-        MenuFinder.from(PROMOTION_MENU_TABLE).isMenuInCategory(menuName, category),
-      )
+      .filter(([menuName]) => findingMenu.isMenuInCategory(menuName, category))
       .reduce((totalDiscount, [, quantity]) => totalDiscount + 2023 * quantity, 0);
   }
 
@@ -86,7 +83,7 @@ class EventReward {
 
     if (totalOrderAmount < 120000) return 0;
 
-    const champagne = MenuFinder.from(PROMOTION_MENU_TABLE).findByMenuName('샴페인', '음료');
+    const champagne = findingMenu.findByMenuName('샴페인', '음료');
     return champagne?.price ?? 0;
   }
 }
