@@ -1,11 +1,12 @@
-import AmountCalculator from '../domain/AmountCalculator.js';
 import EventReward from '../domain/EventReward.js';
 import EventBadgeGenerator from '../domain/EventBadgeGenerator.js';
 import RewardCalculator from '../domain/RewardCalculator.js';
+import orderAmountCalculation from '../domain/OrderAmountCalculation.js';
+import menuFinder from '../domain/MenuFinder.js';
 
 const eventResultService = {
   createEventResult({ visitDate, menuInfo }) {
-    const totalOrderAmount = AmountCalculator.from(menuInfo).calculateAmount();
+    const totalOrderAmount = orderAmountCalculation.calculateAmount(menuFinder, menuInfo);
     const rewardInfo = EventReward.from({ visitDate, menuInfo, totalOrderAmount }).createReward();
     const rewardCalculator = RewardCalculator.of(rewardInfo, totalOrderAmount);
     const rewardAmountInfo = rewardCalculator.calculateRewardAmountInfo();
