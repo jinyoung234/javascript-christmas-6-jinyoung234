@@ -1,33 +1,24 @@
 import { addCalculation } from '../validations/utils/number.js';
 
-class RewardCalculator {
-  #rewardInfo;
-
-  #totalOrderAmount;
-
-  constructor(rewardInfo, totalOrderAmount) {
-    this.#rewardInfo = rewardInfo;
-    this.#totalOrderAmount = totalOrderAmount;
-  }
-
-  static of(rewardInfo, totalOrderAmount) {
-    return new RewardCalculator(rewardInfo, totalOrderAmount);
-  }
-
-  calculateRewardAmountInfo() {
-    const totalRewardAmount = this.#calculateRewardAmount();
-    const expectPaymentAmount = this.#calculateExpectedPayment(totalRewardAmount);
+const benefitAmountCalculation = Object.freeze({
+  createRewardAmountInfo({ benefitInfo, totalOrderAmount }) {
+    const totalRewardAmount = calculateRewardAmount(benefitInfo);
+    const expectPaymentAmount = calculateExpectedPayment({
+      benefitInfo,
+      totalRewardAmount,
+      totalOrderAmount,
+    });
 
     return { totalRewardAmount, expectPaymentAmount };
-  }
+  },
+});
 
-  #calculateRewardAmount() {
-    return Object.values(this.#rewardInfo).reduce(addCalculation, 0);
-  }
-
-  #calculateExpectedPayment(totalRewardAmount) {
-    return this.#totalOrderAmount - (totalRewardAmount - this.#rewardInfo.giftAmount);
-  }
+function calculateRewardAmount(benefitInfo) {
+  return Object.values(benefitInfo).reduce(addCalculation, 0);
 }
 
-export default RewardCalculator;
+function calculateExpectedPayment({ totalOrderAmount, totalRewardAmount, benefitInfo }) {
+  return totalOrderAmount - (totalRewardAmount - benefitInfo.giftAmount);
+}
+
+export default benefitAmountCalculation;
