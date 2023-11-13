@@ -90,7 +90,7 @@
 
 <summary> 중복된 메뉴가 존재하는 경우 </summary>
 
-![중복된 메뉴가 존재하는 경우](https://github.com/jinyoung234/javascript-christmas-6-jinyoung234/assets/87177577/29b31d63-1b14-4942-a001-054c7a43dd4a)
+![중복된 메뉴가 존재하는 경우](https://github.com/jinyoung234/javascript-christmas-6-jinyoung234/assets/87177577/61b471d8-30cf-4117-be7a-1b18834ee294)
 
 </details>
 
