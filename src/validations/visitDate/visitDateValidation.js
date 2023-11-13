@@ -6,6 +6,9 @@ import { startValidation } from '../utils/startValidation.js';
 import { DATE_RANGE } from './constant.js';
 
 const visitDateValidation = Object.freeze({
+  /**
+   * @type {import('../../utils/jsDoc.js').VisitDateValidationTypes}
+   */
   validationTypes: Object.freeze({
     validInteger: Object.freeze({
       errorMessage: '유효하지 않은 날짜입니다. 다시 입력해 주세요.',
@@ -26,7 +29,7 @@ const visitDateValidation = Object.freeze({
 
   /**
    * @param {number} visitDate - 사용자의 예상 방문 날짜
-   * @throws {import('../../error/AppError/AppError.module.js').default} 유효성을 만족하지 않을 경우 에러 발생
+   * @throws {import('../../errors/AppError/module.js').default} 유효성을 만족하지 않을 경우 에러 발생
    * @returns {void}
    */
   check(visitDate) {

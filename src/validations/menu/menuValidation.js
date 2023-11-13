@@ -9,6 +9,9 @@ export const INVALID_MENU_MESSAGE = '유효하지 않은 주문입니다. 다시
  * 입력 값에 대한 주문 메뉴 및 수량의 유효성 검사를 수행하는 모듈
  */
 const menuValidation = Object.freeze({
+  /**
+   * @type {import('../../utils/jsDoc.js').MenuValidationTypes}
+   */
   validationTypes: Object.freeze({
     menuCategory: Object.freeze({
       errorMessage: INVALID_MENU_MESSAGE,
@@ -75,8 +78,8 @@ const menuValidation = Object.freeze({
   }),
 
   /**
-   * @param {Array} orders - 사용자의 주문 배열, 각 요소는 [메뉴, 메뉴 갯수] 형태
-   * @throws {AppError} 유효성을 만족하지 않을 경우 에러 발생
+   * @param {[string, number][]} orders - 사용자의 주문 배열, 각 요소는 [메뉴, 메뉴 갯수] 형태
+   * @throws {import('../../errors/AppError/module.js').default} 유효성을 만족하지 않을 경우 에러 발생
    * @returns {void}
    */
   check(orders) {

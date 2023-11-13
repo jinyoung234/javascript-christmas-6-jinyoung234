@@ -42,3 +42,12 @@ export const GIFT_INFO = {
   menuCategory: '음료',
   menuName: '샴페인',
 };
+
+export const SPECIAL_DATES = new Set([
+  `${PROMOTION_DATE_INFO.year}-${PROMOTION_DATE_INFO.month}-03`,
+  `${PROMOTION_DATE_INFO.year}-${PROMOTION_DATE_INFO.month}-10`,
+  `${PROMOTION_DATE_INFO.year}-${PROMOTION_DATE_INFO.month}-17`,
+  `${PROMOTION_DATE_INFO.year}-${PROMOTION_DATE_INFO.month}-24`,
+  `${PROMOTION_DATE_INFO.year}-${PROMOTION_DATE_INFO.month}-25`,
+  `${PROMOTION_DATE_INFO.year}-${PROMOTION_DATE_INFO.month}-31`,
+]);

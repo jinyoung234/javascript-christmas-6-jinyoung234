@@ -8,9 +8,18 @@ import {
   BENEFIT_AMOUNT_INFO,
   MINIMUM_ORDER_AMOUNT_FOR_GIFT,
   GIFT_INFO,
+  SPECIAL_DATES,
 } from './constant.js';
 
+/**
+ * @module benefitCalculation
+ * 프로모션 내 존재하는 모든 혜택 들을 계산하는 모듈
+ */
 const benefitCalculation = Object.freeze({
+  /**
+   * @param {import('../../utils/jsDoc.js').OrdererInfo} ordererInfo - 주문자 정보(방문 일자, 총 주문 금액, 주문한 메뉴 정보)
+   * @returns {import('../../utils/jsDoc.js').BenefitInfo} 각 혜택 금액 정보
+   */
   calculateBenefit({ visitDate, totalOrderAmount, menuInfo }) {
     const { startDate, endDate } = BENEFIT_DATE_INFO;
     const formatVisitDate = formatVisitDateForPromotion(visitDate);
@@ -27,6 +36,10 @@ const benefitCalculation = Object.freeze({
 
 export default benefitCalculation;
 
+/**
+ * @param {number} visitDate - 방문 일자
+ * @returns {Date} 방문 일자에 대한 Date 객체
+ */
 function formatVisitDateForPromotion(visitDate) {
   const { year, month } = PROMOTION_DATE_INFO;
 
@@ -35,6 +48,10 @@ function formatVisitDateForPromotion(visitDate) {
     : new Date(`${year}-${month}-${visitDate}`);
 }
 
+/**
+ * @param {import('../../utils/jsDoc.js').OrdererInfo} ordererInfo - 주문자 정보(방문 일자, 총 주문 금액, 주문한 메뉴 정보)
+ * @returns {import('../../utils/jsDoc.js').BenefitInfo} 각 혜택 금액 정보
+ */
 function createBenefitInfo(ordererInfo) {
   const { weekday, weekend } = DAY_OF_BENEFIT_CONDITION;
 
@@ -47,6 +64,10 @@ function createBenefitInfo(ordererInfo) {
   };
 }
 
+/**
+ * @param {import('../../utils/jsDoc.js').OrdererInfo} ordererInfo - 주문자 정보(방문 일자, 총 주문 금액, 주문한 메뉴 정보)
+ * @returns {number | 0} 크리스마스 디데이 할인이 적용되거나 적용되지 않은 금액
+ */
 function calculateChristmasDiscount({ visitDate }) {
   const { startDate, christmas: endDate } = BENEFIT_DATE_INFO;
 
@@ -61,6 +82,11 @@ function calculateChristmasDiscount({ visitDate }) {
   return christmas + everyDay * (totalEventDay - daysUntilChristmas);
 }
 
+/**
+ *
+ * @param {import('../../utils/jsDoc.js').CalculateDiscountForDayTypeParams} params - 주문자 정보 + 요일 할인 조건이 들어있는 매개 변수
+ * @returns {number | 0} 요일(주말/평일) 할인이 적용되거나 적용 되지 않은 금액
+ */
 function calculateDiscountForDayType({ ordererInfo: { menuInfo, visitDate }, menuCategory, days }) {
   const visitDay = visitDate.getDay();
 
@@ -74,24 +100,21 @@ function calculateDiscountForDayType({ ordererInfo: { menuInfo, visitDate }, men
     );
 }
 
+/**
+ * @param {{visitDate : Date}} params - 방문 일자(Date 객체)가 포함된 객체
+ * @returns {number | 0} 특별 할인이 적용되거나 적용되지 않은 금액
+ */
 function calculateSpecialDiscount({ visitDate }) {
   const formattedVisitDate = visitDate.toISOString().substring(0, 10);
-  const specialDates = createSpecialDates();
+  const specialDates = SPECIAL_DATES;
 
   return specialDates.has(formattedVisitDate) ? BENEFIT_AMOUNT_INFO.special : 0;
 }
 
-function createSpecialDates() {
-  return new Set([
-    `${PROMOTION_DATE_INFO.year}-${PROMOTION_DATE_INFO.month}-03`,
-    `${PROMOTION_DATE_INFO.year}-${PROMOTION_DATE_INFO.month}-10`,
-    `${PROMOTION_DATE_INFO.year}-${PROMOTION_DATE_INFO.month}-17`,
-    `${PROMOTION_DATE_INFO.year}-${PROMOTION_DATE_INFO.month}-24`,
-    `${PROMOTION_DATE_INFO.year}-${PROMOTION_DATE_INFO.month}-25`,
-    `${PROMOTION_DATE_INFO.year}-${PROMOTION_DATE_INFO.month}-31`,
-  ]);
-}
-
+/**
+ * @param {{totalOrderAmount : number}} params - 총 주문 금액이 포함된 객체
+ * @returns {number | 0} 증정 이벤트가 적용되거나 적용되지 않은 금액
+ */
 function calculateGiftEvent({ totalOrderAmount }) {
   if (totalOrderAmount < MINIMUM_ORDER_AMOUNT_FOR_GIFT) return 0;
 
