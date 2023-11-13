@@ -5,7 +5,8 @@ const benefitCalculation = Object.freeze({
     const [startDate, endDate] = [new Date('2023-12-01'), new Date('2023-12-31')];
     const { visitDate } = ordererInfo;
 
-    if (!(visitDate >= startDate && visitDate <= endDate)) return createInitialBenefitInfo();
+    if (!(visitDate >= startDate && visitDate <= endDate) || ordererInfo.totalOrderAmount < 10000)
+      return createInitialBenefitInfo();
 
     return createBenefitInfo(ordererInfo);
   },
