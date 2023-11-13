@@ -1,4 +1,4 @@
-import { PROMOTION_DATE_INFO } from './promotionSystem';
+import { PROMOTION_DATE_INFO } from './promotionSystem.js';
 
 export const INPUT_MESSAGE = Object.freeze({
   visitDate: `${PROMOTION_DATE_INFO.month}월 중 식당 예상 방문 날짜는 언제인가요? (숫자만 입력해 주세요!)\n`,

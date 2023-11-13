@@ -1,8 +1,10 @@
-import benefitCalculation from '../domain/BenefitCalculation.js';
-import orderAmountCalculation from '../domain/OrderAmountCalculation.js';
-import menuFinder from '../domain/MenuFinder.js';
-import benefitAmountCalculation from '../domain/BenefitAmountCalculation.js';
-import eventBadgeGeneration from '../domain/EventBadgeGeneration.js';
+import {
+  benefitCalculation,
+  orderAmountCalculation,
+  menuFinder,
+  benefitAmountCalculation,
+  eventBadgeGeneration,
+} from '../domain/index.js';
 
 const eventResultService = {
   createEventResult({ visitDate, menuInfo }) {

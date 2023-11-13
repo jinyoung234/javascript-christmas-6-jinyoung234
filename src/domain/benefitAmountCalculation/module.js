@@ -1,4 +1,4 @@
-import { addCalculation } from '../validations/utils/number.js';
+import { addCalculation } from '../../utils/number.js';
 
 const benefitAmountCalculation = Object.freeze({
   createBenefitAmountInfo({ benefitInfo, totalOrderAmount }) {

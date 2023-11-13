@@ -1,5 +1,5 @@
-import menuFinder from '../../src/domain/MenuFinder';
-import orderAmountCalculation from '../../src/domain/OrderAmountCalculation';
+import menuFinder from '../../src/domain/menuFinder/module';
+import orderAmountCalculation from '../../src/domain/orderAmountCalculation/module';
 
 describe('총 주문 금액 계산 테스트', () => {
   test.each([

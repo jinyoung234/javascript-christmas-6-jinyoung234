@@ -1,14 +1,25 @@
-import { PROMOTION_DATE_INFO } from '../constants/promotionSystem.js';
-import menuFinder from './MenuFinder.js';
+import menuFinder from '../menuFinder/module.js';
+import { PROMOTION_DATE_INFO } from '../../constants/promotionSystem.js';
+import {
+  DAY_OF_BENEFIT_CONDITION,
+  BENEFIT_DATE_INFO,
+  INITIAL_BENEFIT_INFO,
+  MINIMUM_TOTAL_ORDER_AMOUNT,
+  BENEFIT_AMOUNT_INFO,
+  MINIMUM_ORDER_AMOUNT_FOR_GIFT,
+  GIFT_INFO,
+} from './constant.js';
 
 const benefitCalculation = Object.freeze({
   calculateBenefit(ordererInfo) {
-    const { year, month } = PROMOTION_DATE_INFO;
-    const [startDate, endDate] = [new Date(`${year}-${month}-01`), new Date(`${year}-${month}-31`)];
+    const { startDate, endDate } = BENEFIT_DATE_INFO;
     const { visitDate } = ordererInfo;
 
-    if (!(visitDate >= startDate && visitDate <= endDate) || ordererInfo.totalOrderAmount < 10000)
-      return createInitialBenefitInfo();
+    if (
+      !(visitDate >= startDate && visitDate <= endDate) ||
+      ordererInfo.totalOrderAmount < MINIMUM_TOTAL_ORDER_AMOUNT
+    )
+      return INITIAL_BENEFIT_INFO;
 
     return createBenefitInfo(ordererInfo);
   },
@@ -16,18 +27,8 @@ const benefitCalculation = Object.freeze({
 
 export default benefitCalculation;
 
-function createInitialBenefitInfo() {
-  return Object.freeze({
-    xmasDiscountAmount: 0,
-    weekDayDiscountAmount: 0,
-    weekendDiscountAmount: 0,
-    specialDiscountAmount: 0,
-    giftAmount: 0,
-  });
-}
-
 function createBenefitInfo(ordererInfo) {
-  const { weekday, weekend } = createDayOfDiscountInfo();
+  const { weekday, weekend } = DAY_OF_BENEFIT_CONDITION;
 
   return {
     xmasDiscountAmount: calculateChristmasDiscount(ordererInfo),
@@ -38,33 +39,18 @@ function createBenefitInfo(ordererInfo) {
   };
 }
 
-function createDayOfDiscountInfo() {
-  return {
-    weekday: Object.freeze({
-      menuCategory: '디저트',
-      days: [0, 1, 2, 3, 4],
-    }),
-
-    weekend: Object.freeze({
-      menuCategory: '메인',
-      days: [5, 6],
-    }),
-  };
-}
-
 function calculateChristmasDiscount({ visitDate }) {
-  const { year, month } = PROMOTION_DATE_INFO;
-  const [startDate, endDate] = [new Date(`${year}-${month}-01`), new Date(`${year}-${month}-25`)];
+  const { startDate, christmas: endDate } = BENEFIT_DATE_INFO;
 
   if (!(visitDate >= startDate && visitDate <= endDate)) return 0;
 
   const millisecondPerDay = 1000 * 60 * 60 * 24;
   const daysUntilChristmas = Math.floor((endDate - visitDate) / millisecondPerDay);
 
-  const [christmasDiscountPerDay, christmasInitialDiscount] = [100, 1000];
+  const { christmas, everyDay } = BENEFIT_AMOUNT_INFO;
 
   const totalEventDay = 24;
-  return christmasInitialDiscount + christmasDiscountPerDay * (totalEventDay - daysUntilChristmas);
+  return christmas + everyDay * (totalEventDay - daysUntilChristmas);
 }
 
 function calculateDiscountForDayType({ ordererInfo: { menuInfo, visitDate }, menuCategory, days }) {
@@ -72,19 +58,19 @@ function calculateDiscountForDayType({ ordererInfo: { menuInfo, visitDate }, men
 
   if (!days.includes(visitDay)) return 0;
 
-  const dayDiscount = 2023;
-
   return menuInfo
     .filter(([menuName]) => menuFinder.isMenuInCategory(menuName, menuCategory))
-    .reduce((totalDiscount, [, quantity]) => totalDiscount + dayDiscount * quantity, 0);
+    .reduce(
+      (totalDiscount, [, quantity]) => totalDiscount + BENEFIT_AMOUNT_INFO.dayOfWeek * quantity,
+      0,
+    );
 }
 
 function calculateSpecialDiscount({ visitDate }) {
   const formattedVisitDate = visitDate.toISOString().substring(0, 10);
-  const specialDiscount = 1000;
   const specialDates = createSpecialDates();
 
-  return specialDates.has(formattedVisitDate) ? specialDiscount : 0;
+  return specialDates.has(formattedVisitDate) ? BENEFIT_AMOUNT_INFO.special : 0;
 }
 
 function createSpecialDates() {
@@ -99,9 +85,10 @@ function createSpecialDates() {
 }
 
 function calculateGiftEvent({ totalOrderAmount }) {
-  const minimumOrderAmountForGift = 120000;
-  if (totalOrderAmount < minimumOrderAmountForGift) return 0;
+  if (totalOrderAmount < MINIMUM_ORDER_AMOUNT_FOR_GIFT) return 0;
 
-  const champagne = menuFinder.findByMenuName('샴페인', '음료');
+  const { menuCategory, menuName } = GIFT_INFO;
+  const champagne = menuFinder.findByMenuName(menuName, menuCategory);
+
   return champagne?.price ?? 0;
 }

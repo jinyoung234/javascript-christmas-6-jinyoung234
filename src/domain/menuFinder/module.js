@@ -1,4 +1,4 @@
-import { PROMOTION_MENU_TABLE } from '../constants/promotionSystem';
+import { PROMOTION_MENU_TABLE } from '../../constants/promotionSystem.js';
 
 const menuFinder = Object.freeze({
   findByMenuName(menuName, category) {

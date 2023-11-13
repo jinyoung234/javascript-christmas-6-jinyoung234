@@ -1,4 +1,4 @@
-import benefitAmountCalculation from '../../src/domain/BenefitAmountCalculation.js';
+import benefitAmountCalculation from '../../src/domain/benefitAmountCalculation/module.js';
 
 describe('총 혜택 금액 및 예상 지출 금액 계산 테스트', () => {
   describe('총 혜택 금액 계산', () => {

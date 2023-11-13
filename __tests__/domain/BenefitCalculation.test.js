@@ -1,5 +1,10 @@
 import { PROMOTION_DATE_INFO } from '../../src/constants/promotionSystem';
-import benefitCalculation from '../../src/domain/BenefitCalculation';
+import {
+  BENEFIT_AMOUNT_INFO,
+  INITIAL_BENEFIT_INFO,
+  MINIMUM_ORDER_AMOUNT_FOR_GIFT,
+} from '../../src/domain/benefitCalculation/constant';
+import benefitCalculation from '../../src/domain/benefitCalculation/module';
 
 describe('프로모션 내 혜택 내역 계산 테스트', () => {
   // given
@@ -28,7 +33,7 @@ describe('프로모션 내 혜택 내역 계산 테스트', () => {
           ...createOrdererInfoTestCase(),
         },
         expectedDiscountInfo: {
-          weekDayDiscountAmount: 2 * 2023,
+          weekDayDiscountAmount: 2 * BENEFIT_AMOUNT_INFO.dayOfWeek,
         },
       },
       {
@@ -61,7 +66,7 @@ describe('프로모션 내 혜택 내역 계산 테스트', () => {
           }),
         },
         expectedDiscountInfo: {
-          weekendDiscountAmount: 2023 * 2,
+          weekendDiscountAmount: BENEFIT_AMOUNT_INFO.dayOfWeek * 2,
         },
       },
       {
@@ -96,28 +101,18 @@ describe('프로모션 내 혜택 내역 계산 테스트', () => {
           ],
           totalOrderAmount: 109000,
         },
-        expectedDiscountInfo: {
-          xmasDiscountAmount: 0,
-          weekDayDiscountAmount: 0,
-          weekendDiscountAmount: 0,
-          specialDiscountAmount: 0,
-          giftAmount: 0,
-        },
+        expectedDiscountInfo: INITIAL_BENEFIT_INFO,
       },
       {
         description: `${PROMOTION_DATE_INFO.year + 1}년 1월 1일은 ${
           PROMOTION_DATE_INFO.year
         }년이 아니기 때문에 할인이 적용되지 않는다.`,
         ordererInfo: {
-          ...createOrdererInfoTestCase({ visitDate: `${PROMOTION_DATE_INFO.year + 1}-01-01` }),
+          ...createOrdererInfoTestCase({
+            visitDate: `${PROMOTION_DATE_INFO.year + 1}-${PROMOTION_DATE_INFO.month - 11}-01`,
+          }),
         },
-        expectedDiscountInfo: {
-          xmasDiscountAmount: 0,
-          weekDayDiscountAmount: 0,
-          weekendDiscountAmount: 0,
-          specialDiscountAmount: 0,
-          giftAmount: 0,
-        },
+        expectedDiscountInfo: INITIAL_BENEFIT_INFO,
       },
     ])('$description', ({ ordererInfo, expectedDiscountInfo }) => {
       // given - when
@@ -131,7 +126,7 @@ describe('프로모션 내 혜택 내역 계산 테스트', () => {
   describe('증정 이벤트 적용 여부 테스트', () => {
     test.each([
       {
-        description: '88000원은 12만원 미만이므로 샴페인이 증정되지 않는다.',
+        description: `88000원은 ${MINIMUM_ORDER_AMOUNT_FOR_GIFT}만원 미만이므로 샴페인이 증정되지 않는다.`,
         ordererInfo: {
           visitDate: new Date(`${PROMOTION_DATE_INFO.year}-${PROMOTION_DATE_INFO.month}-02`),
           menuInfo: [
@@ -146,7 +141,7 @@ describe('프로모션 내 혜택 내역 계산 테스트', () => {
         },
       },
       {
-        description: '142000원은 12만원 초과이므로 샴페인이 증정된다.',
+        description: `142000원은 ${MINIMUM_ORDER_AMOUNT_FOR_GIFT}만원 초과이므로 샴페인이 증정된다.`,
         ordererInfo: {
           ...createOrdererInfoTestCase(),
         },
@@ -202,42 +197,42 @@ describe('프로모션 내 혜택 내역 계산 테스트', () => {
         ordererInfo: createOrdererInfoTestCase({
           visitDate: `${PROMOTION_DATE_INFO.year}-${PROMOTION_DATE_INFO.month}-03`,
         }),
-        expectedDiscountInfo: { specialDiscountAmount: 1000 },
+        expectedDiscountInfo: { specialDiscountAmount: BENEFIT_AMOUNT_INFO.special },
       },
       {
         description: `${PROMOTION_DATE_INFO.month}월 10일은 특별 할인 이벤트가 적용된다.`,
         ordererInfo: createOrdererInfoTestCase({
           visitDate: `${PROMOTION_DATE_INFO.year}-${PROMOTION_DATE_INFO.month}-10`,
         }),
-        expectedDiscountInfo: { specialDiscountAmount: 1000 },
+        expectedDiscountInfo: { specialDiscountAmount: BENEFIT_AMOUNT_INFO.special },
       },
       {
         description: `${PROMOTION_DATE_INFO.month}월 17일은 특별 할인 이벤트가 적용된다.`,
         ordererInfo: createOrdererInfoTestCase({
           visitDate: `${PROMOTION_DATE_INFO.year}-${PROMOTION_DATE_INFO.month}-17`,
         }),
-        expectedDiscountInfo: { specialDiscountAmount: 1000 },
+        expectedDiscountInfo: { specialDiscountAmount: BENEFIT_AMOUNT_INFO.special },
       },
       {
         description: `${PROMOTION_DATE_INFO.month}월 24일은 특별 할인 이벤트가 적용된다.`,
         ordererInfo: createOrdererInfoTestCase({
           visitDate: `${PROMOTION_DATE_INFO.year}-${PROMOTION_DATE_INFO.month}-24`,
         }),
-        expectedDiscountInfo: { specialDiscountAmount: 1000 },
+        expectedDiscountInfo: { specialDiscountAmount: BENEFIT_AMOUNT_INFO.special },
       },
       {
         description: `${PROMOTION_DATE_INFO.month}월 25일은 특별 할인 이벤트가 적용된다.`,
         ordererInfo: createOrdererInfoTestCase({
           visitDate: `${PROMOTION_DATE_INFO.year}-${PROMOTION_DATE_INFO.month}-25`,
         }),
-        expectedDiscountInfo: { specialDiscountAmount: 1000 },
+        expectedDiscountInfo: { specialDiscountAmount: BENEFIT_AMOUNT_INFO.special },
       },
       {
         description: `${PROMOTION_DATE_INFO.month}월 31일은 특별 할인 이벤트가 적용된다.`,
         ordererInfo: createOrdererInfoTestCase({
           visitDate: `${PROMOTION_DATE_INFO.year}-${PROMOTION_DATE_INFO.month}-31`,
         }),
-        expectedDiscountInfo: { specialDiscountAmount: 1000 },
+        expectedDiscountInfo: { specialDiscountAmount: BENEFIT_AMOUNT_INFO.special },
       },
       {
         description: `${PROMOTION_DATE_INFO.month}월 30일은 특별 할인 이벤트가 적용되지 않는다.`,

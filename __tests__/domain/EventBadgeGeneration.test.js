@@ -1,4 +1,4 @@
-import eventBadgeGeneration from '../../src/domain/EventBadgeGeneration.js';
+import eventBadgeGeneration from '../../src/domain/eventBadgeGeneration/module.js';
 
 describe('이벤트 뱃지 생성 테스트', () => {
   test.each([
