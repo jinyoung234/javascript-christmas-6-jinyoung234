@@ -14,7 +14,7 @@ const orderAmountCalculation = Object.freeze({
     return menuInfo.reduce((prevTotalAmount, [menuItemName, quantity]) => {
       const matchingMenu = menuFinder.findByMenuName(menuItemName);
 
-      return !matchingMenu ? prevTotalAmount : prevTotalAmount + matchingMenu.price * quantity;
+      return prevTotalAmount + (matchingMenu?.price ?? 0) * quantity;
     }, 0);
   },
 });
