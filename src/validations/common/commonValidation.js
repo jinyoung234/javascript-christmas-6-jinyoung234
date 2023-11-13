@@ -1,5 +1,5 @@
-import { SYMBOLS } from '../constants/symbols.js';
-import { startValidation } from './utils/startValidation.js';
+import { SYMBOLS } from '../../constants/symbols.js';
+import { startValidation } from '../utils/startValidation.js';
 
 /**
  * @module commonValidation

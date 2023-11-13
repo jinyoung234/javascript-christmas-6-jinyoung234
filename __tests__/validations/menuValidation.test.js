@@ -1,5 +1,5 @@
 import AppError from '../../src/errors/appError';
-import menuValidation from '../../src/validations/menuValidation';
+import { menuValidation } from '../../src/validations';
 
 describe('menuValidation 테스트', () => {
   const startMenuValidation = (orders) => () => menuValidation.check(orders);

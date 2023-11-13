@@ -2,7 +2,8 @@
  * @module visitDateValidation
  * 입력 값에 대한 예상 방문 날짜의 유효성 검사를 수행하는 모듈
  */
-import { startValidation } from './utils/startValidation.js';
+import { startValidation } from '../utils/startValidation.js';
+import { DATE_RANGE } from './constant.js';
 
 const visitDateValidation = Object.freeze({
   validationTypes: Object.freeze({
@@ -16,7 +17,9 @@ const visitDateValidation = Object.freeze({
     validDate: Object.freeze({
       errorMessage: '유효하지 않은 날짜입니다. 다시 입력해 주세요.',
       isValid(visitDate) {
-        return visitDate >= 1 && visitDate <= 31;
+        const { min, max } = DATE_RANGE;
+
+        return visitDate >= min && visitDate <= max;
       },
     }),
   }),

@@ -1,5 +1,6 @@
-import { PROMOTION_MENU_TABLE } from '../constants/promotionSystem.js';
-import { startValidation } from './utils/startValidation.js';
+import { PROMOTION_MENU_TABLE } from '../../constants/promotionSystem.js';
+import { startValidation } from '../utils/startValidation.js';
+import { ORDER_QUANTITY } from './constant.js';
 
 export const INVALID_MENU_MESSAGE = '유효하지 않은 주문입니다. 다시 입력해 주세요.';
 
@@ -39,7 +40,7 @@ const menuValidation = Object.freeze({
     singleMenuCount: Object.freeze({
       errorMessage: INVALID_MENU_MESSAGE,
       isValid(orders) {
-        return orders.every(([, menuCount]) => menuCount >= 1);
+        return orders.every(([, menuCount]) => menuCount >= ORDER_QUANTITY.min);
       },
     }),
 
@@ -50,7 +51,9 @@ const menuValidation = Object.freeze({
           (prevOrderCount, [, orderCount]) => prevOrderCount + orderCount,
           0,
         );
-        return allOrderCount >= 1 && allOrderCount <= 20;
+        const { min, max } = ORDER_QUANTITY;
+
+        return allOrderCount >= min && allOrderCount <= max;
       },
     }),
 

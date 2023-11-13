@@ -4,8 +4,7 @@ import { INPUT_MESSAGE } from '../constants/messages.js';
 import { SYMBOLS } from '../constants/symbols.js';
 import { PROMOTION_DATE_INFO } from '../constants/promotionSystem.js';
 
-import { commonValidation, visitDateValidation } from '../validations/index.js';
-import menuValidation from '../validations/menuValidation.js';
+import { commonValidation, visitDateValidation, menuValidation } from '../validations/index.js';
 
 const InputView = {
   async read(message) {
