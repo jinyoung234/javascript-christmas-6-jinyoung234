@@ -1,6 +1,6 @@
 import InputView from '../views/InputView.js';
 import OutputView from '../views/OutputView.js';
-import eventResultService from '../service/eventResultService.js';
+import eventResultService from '../service/EventResultService.js';
 import systemErrorHandler from '../errors/systemErrorHandler.js';
 
 const christmasPromotionController = {

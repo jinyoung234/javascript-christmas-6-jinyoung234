@@ -1,4 +1,4 @@
-import christmasPromotionController from './controller/PlannerController.js';
+import christmasPromotionController from './controller/ChristmasPromotionController.js';
 
 class App {
   #controller = christmasPromotionController;
