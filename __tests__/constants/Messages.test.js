@@ -43,4 +43,21 @@ describe('메시지 포맷 테스트', () => {
       expect(FORMAT_MESSAGE.benefitHistory(input)).toBe(output);
     });
   });
+
+  describe('title 테스트', () => {
+    test.each([
+      {
+        description: 'newLine 옵션이 false일 경우, 출력 결과는 "<제목>"이다.',
+        input: { config: { newLine: false }, title: '제목' },
+        output: '<제목>',
+      },
+      {
+        description: 'newLine 옵션이 true일 경우, 출력 결과는 "\\n<제목>"이다.',
+        input: { config: { newLine: true }, title: '제목' },
+        output: '\n<제목>',
+      },
+    ])('$description', ({ input, output }) => {
+      expect(FORMAT_MESSAGE.title(input.config, input.title)).toBe(output);
+    });
+  });
 });
