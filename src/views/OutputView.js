@@ -4,14 +4,15 @@ import { FORMAT_MESSAGE, OUTPUT_MESSAGE } from '../constants/messages.js';
 const OutputView = {
   printEventResult({
     menuInfo,
-    eventResult: { totalOrderAmount, rewardAmountInfo, benefitInfo, eventBadge },
+    eventResult: { totalOrderAmount, benefitAmountInfo, benefitInfo, eventBadge },
   }) {
     printOrderMenu(menuInfo);
     printTotalOrderAmount(totalOrderAmount);
+
     printGiftMenu(benefitInfo);
     printBenefitHistory(benefitInfo);
-    printTotalBenefitAmount(rewardAmountInfo.totalRewardAmount);
-    printExpectPaymentAmount(rewardAmountInfo.expectPaymentAmount);
+    printTotalBenefitAmount(benefitAmountInfo.totalRewardAmount);
+    printExpectPaymentAmount(benefitAmountInfo.expectPaymentAmount);
     printEventBadge(eventBadge);
   },
 };

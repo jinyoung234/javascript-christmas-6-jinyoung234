@@ -1,7 +1,7 @@
 import { addCalculation } from '../validations/utils/number.js';
 
 const benefitAmountCalculation = Object.freeze({
-  createRewardAmountInfo({ benefitInfo, totalOrderAmount }) {
+  createBenefitAmountInfo({ benefitInfo, totalOrderAmount }) {
     const totalRewardAmount = calculateRewardAmount(benefitInfo);
     const expectPaymentAmount = calculateExpectedPayment({
       benefitInfo,

@@ -1,4 +1,4 @@
-import benefitAmountCalculation from '../../src/domain/RewardCalculator.js';
+import benefitAmountCalculation from '../../src/domain/BenefitAmountCalculation.js';
 
 describe('총 혜택 금액 및 예상 지출 금액 계산 테스트', () => {
   describe('총 혜택 금액 계산', () => {
@@ -27,7 +27,7 @@ describe('총 혜택 금액 및 예상 지출 금액 계산 테스트', () => {
       '총 혜택 금액은 $expectedTotalRewardAmount원 이다.',
       ({ benefitInfo, totalOrderAmount, expectedTotalRewardAmount }) => {
         // given - when
-        const { totalRewardAmount } = benefitAmountCalculation.createRewardAmountInfo({
+        const { totalRewardAmount } = benefitAmountCalculation.createBenefitAmountInfo({
           benefitInfo,
           totalOrderAmount,
         });
@@ -64,7 +64,7 @@ describe('총 혜택 금액 및 예상 지출 금액 계산 테스트', () => {
       '예상 결제 금액은 $expectedExpectPaymentAmount원 이다.',
       ({ benefitInfo, totalOrderAmount, expectedExpectPaymentAmount }) => {
         // given - when
-        const { expectPaymentAmount } = benefitAmountCalculation.createRewardAmountInfo({
+        const { expectPaymentAmount } = benefitAmountCalculation.createBenefitAmountInfo({
           benefitInfo,
           totalOrderAmount,
         });
