@@ -1,14 +1,13 @@
 import {
   benefitCalculation,
   orderAmountCalculation,
-  menuFinder,
   benefitAmountCalculation,
   eventBadgeGeneration,
 } from '../domain/index.js';
 
 const eventResultService = {
   createEventResult({ visitDate, menuInfo }) {
-    const totalOrderAmount = orderAmountCalculation.calculateAmount(menuFinder, menuInfo);
+    const totalOrderAmount = orderAmountCalculation.calculateAmount(menuInfo);
     const ordererInfo = { visitDate, totalOrderAmount, menuInfo };
     const benefitInfo = benefitCalculation.calculateBenefit(ordererInfo);
 

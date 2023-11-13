@@ -1,5 +1,7 @@
+import menuFinder from '../menuFinder/module.js';
+
 const orderAmountCalculation = Object.freeze({
-  calculateAmount(menuFinder, menuInfo) {
+  calculateAmount(menuInfo) {
     return menuInfo.reduce((prevTotalAmount, [menuItemName, quantity]) => {
       const matchingMenu = menuFinder.findByMenuName(menuItemName);
 
