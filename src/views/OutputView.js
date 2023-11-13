@@ -88,7 +88,7 @@ function printTotalBenefitAmount(totalRewardAmount) {
 function printExpectPaymentAmount(expectPaymentAmount) {
   printSection(
     OUTPUT_MESSAGE.title.expectPaymentAmount,
-    expectPaymentAmount !== 0 ? `${FORMAT_MESSAGE.amount(expectPaymentAmount)}` : null,
+    FORMAT_MESSAGE.amount(expectPaymentAmount),
   );
 }
 
