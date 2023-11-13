@@ -25,6 +25,10 @@ export const OUTPUT_MESSAGE = Object.freeze({
 });
 
 export const FORMAT_MESSAGE = Object.freeze({
+  title(config, title) {
+    return `${config.newLine ? '\n' : ''}<${title}>`;
+  },
+
   orderMenus(menuInfo) {
     return menuInfo.map(([menuName, quantity]) => `${menuName} ${quantity}개\n`).join('');
   },

@@ -59,7 +59,7 @@ function printEventBadge(eventBadge) {
 }
 
 function printSection(title, content, config = { newLine: true }) {
-  Console.print(`${config.newLine ? '\n' : ''}<${title}>`);
+  Console.print(FORMAT_MESSAGE.title(config, title));
 
   if (content) Console.print(content);
 
