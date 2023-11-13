@@ -38,7 +38,7 @@ function printTotalOrderAmount(totalOrderAmount) {
 }
 
 function printGiftMenu({ giftAmount }) {
-  printSection(OUTPUT_MESSAGE.title.giftMenu, giftAmount !== 0 ? '샴페인 1개' : null);
+  printSection(OUTPUT_MESSAGE.title.giftMenu, giftAmount !== 0 ? OUTPUT_MESSAGE.gift : null);
 }
 
 function printBenefitHistory(benefitInfo) {
@@ -73,5 +73,5 @@ function printSection(title, content, config = { newLine: true }) {
 
   if (content) Console.print(content);
 
-  if (!content) Console.print('없음');
+  if (!content) Console.print(OUTPUT_MESSAGE.nothing);
 }

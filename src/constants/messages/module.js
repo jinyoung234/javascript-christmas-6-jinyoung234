@@ -26,6 +26,10 @@ export const OUTPUT_MESSAGE = Object.freeze({
     specialDiscountAmount: '특별 할인',
     giftAmount: '증정 이벤트',
   }),
+
+  nothing: '없음',
+
+  gift: '샴페인 1개',
 });
 
 export const FORMAT_MESSAGE = Object.freeze({
