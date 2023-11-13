@@ -18,7 +18,9 @@ function calculateRewardAmount(benefitInfo) {
 }
 
 function calculateExpectedPayment({ totalOrderAmount, totalRewardAmount, benefitInfo }) {
-  return totalOrderAmount - (totalRewardAmount - benefitInfo.giftAmount);
+  const discountAmount = totalRewardAmount - benefitInfo.giftAmount;
+
+  return totalOrderAmount - discountAmount;
 }
 
 export default benefitAmountCalculation;
