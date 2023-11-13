@@ -29,11 +29,8 @@ export const OUTPUT_MESSAGE = Object.freeze({
 });
 
 export const FORMAT_MESSAGE = Object.freeze({
-  date(date) {
-    const month = date.getMonth() + 1;
-    const day = date.getDate();
-
-    return `${month}월 ${day}일`;
+  date(visitDate) {
+    return `${PROMOTION_DATE_INFO.month}월 ${visitDate}일`;
   },
 
   endGuideComments(visitDate) {

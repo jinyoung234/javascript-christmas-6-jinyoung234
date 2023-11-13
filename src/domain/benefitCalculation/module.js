@@ -11,21 +11,29 @@ import {
 } from './constant.js';
 
 const benefitCalculation = Object.freeze({
-  calculateBenefit(ordererInfo) {
+  calculateBenefit({ visitDate, totalOrderAmount, menuInfo }) {
     const { startDate, endDate } = BENEFIT_DATE_INFO;
-    const { visitDate } = ordererInfo;
+    const formatVisitDate = formatVisitDateForPromotion(visitDate);
 
     if (
-      !(visitDate >= startDate && visitDate <= endDate) ||
-      ordererInfo.totalOrderAmount < MINIMUM_TOTAL_ORDER_AMOUNT
+      !(formatVisitDate >= startDate && formatVisitDate <= endDate) ||
+      totalOrderAmount < MINIMUM_TOTAL_ORDER_AMOUNT
     )
       return INITIAL_BENEFIT_INFO;
 
-    return createBenefitInfo(ordererInfo);
+    return createBenefitInfo({ visitDate: formatVisitDate, totalOrderAmount, menuInfo });
   },
 });
 
 export default benefitCalculation;
+
+function formatVisitDateForPromotion(visitDate) {
+  const { year, month } = PROMOTION_DATE_INFO;
+
+  return visitDate < 10
+    ? new Date(`${year}-${month}-0${visitDate}`)
+    : new Date(`${year}-${month}-${visitDate}`);
+}
 
 function createBenefitInfo(ordererInfo) {
   const { weekday, weekend } = DAY_OF_BENEFIT_CONDITION;
