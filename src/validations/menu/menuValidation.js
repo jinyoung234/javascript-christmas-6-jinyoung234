@@ -8,8 +8,6 @@ export const INVALID_MENU_MESSAGE = '유효하지 않은 주문입니다. 다시
  * @module menuValidation
  * 입력 값에 대한 주문 메뉴 및 수량의 유효성 검사를 수행하는 모듈
  */
-
-// TODO: constants 분리
 const menuValidation = Object.freeze({
   validationTypes: Object.freeze({
     menuCategory: Object.freeze({
@@ -45,7 +43,7 @@ const menuValidation = Object.freeze({
     }),
 
     validMenuCount: Object.freeze({
-      errorMessage: '메뉴 갯수는 1개에서 20개 까지 가능합니다. 다시 입력해 주세요.',
+      errorMessage: `메뉴 갯수는 ${ORDER_QUANTITY.min}개에서 ${ORDER_QUANTITY.max}개 까지 가능합니다. 다시 입력해 주세요.`,
       isValid(orders) {
         const allOrderCount = orders.reduce(
           (prevOrderCount, [, orderCount]) => prevOrderCount + orderCount,
