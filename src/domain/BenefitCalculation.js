@@ -1,8 +1,10 @@
+import { PROMOTION_DATE_INFO } from '../constants/promotionSystem.js';
 import menuFinder from './MenuFinder.js';
 
 const benefitCalculation = Object.freeze({
   calculateBenefit(ordererInfo) {
-    const [startDate, endDate] = [new Date('2023-12-01'), new Date('2023-12-31')];
+    const { year, month } = PROMOTION_DATE_INFO;
+    const [startDate, endDate] = [new Date(`${year}-${month}-01`), new Date(`${year}-${month}-31`)];
     const { visitDate } = ordererInfo;
 
     if (!(visitDate >= startDate && visitDate <= endDate) || ordererInfo.totalOrderAmount < 10000)
@@ -51,7 +53,8 @@ function createDayOfDiscountInfo() {
 }
 
 function calculateChristmasDiscount({ visitDate }) {
-  const [startDate, endDate] = [new Date('2023-12-01'), new Date('2023-12-25')];
+  const { year, month } = PROMOTION_DATE_INFO;
+  const [startDate, endDate] = [new Date(`${year}-${month}-01`), new Date(`${year}-${month}-25`)];
 
   if (!(visitDate >= startDate && visitDate <= endDate)) return 0;
 
@@ -86,12 +89,12 @@ function calculateSpecialDiscount({ visitDate }) {
 
 function createSpecialDates() {
   return new Set([
-    '2023-12-03',
-    '2023-12-10',
-    '2023-12-17',
-    '2023-12-24',
-    '2023-12-25',
-    '2023-12-31',
+    `${PROMOTION_DATE_INFO.year}-${PROMOTION_DATE_INFO.month}-03`,
+    `${PROMOTION_DATE_INFO.year}-${PROMOTION_DATE_INFO.month}-10`,
+    `${PROMOTION_DATE_INFO.year}-${PROMOTION_DATE_INFO.month}-17`,
+    `${PROMOTION_DATE_INFO.year}-${PROMOTION_DATE_INFO.month}-24`,
+    `${PROMOTION_DATE_INFO.year}-${PROMOTION_DATE_INFO.month}-25`,
+    `${PROMOTION_DATE_INFO.year}-${PROMOTION_DATE_INFO.month}-31`,
   ]);
 }
 

@@ -1,7 +1,10 @@
 import { Console } from '@woowacourse/mission-utils';
+
 import { INPUT_MESSAGE } from '../constants/messages.js';
-import { commonValidation, visitDateValidation } from '../validations/index.js';
 import { SYMBOLS } from '../constants/symbols.js';
+import { PROMOTION_DATE_INFO } from '../constants/promotionSystem.js';
+
+import { commonValidation, visitDateValidation } from '../validations/index.js';
 import menuValidation from '../validations/menuValidation.js';
 
 const InputView = {
@@ -16,7 +19,10 @@ const InputView = {
     const visitDate = Number(await this.read(INPUT_MESSAGE.visitDate));
     visitDateValidation.check(visitDate);
 
-    return visitDate < 10 ? new Date(`2023-12-0${visitDate}`) : new Date(`2023-12-${visitDate}`);
+    const { year, month } = PROMOTION_DATE_INFO;
+    return visitDate < 10
+      ? new Date(`${year}-${month}-0${visitDate}`)
+      : new Date(`${year}-${month}-${visitDate}`);
   },
 
   async readMenuInfo() {
