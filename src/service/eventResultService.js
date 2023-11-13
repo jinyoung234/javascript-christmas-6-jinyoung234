@@ -15,7 +15,7 @@ const eventResultService = {
       totalOrderAmount,
     });
 
-    const eventBadge = eventBadgeGeneration.generateBadge();
+    const eventBadge = eventBadgeGeneration.generateBadge(benefitAmountInfo.totalRewardAmount);
 
     return { totalOrderAmount, benefitAmountInfo, benefitInfo, eventBadge };
   },
