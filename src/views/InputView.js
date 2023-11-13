@@ -20,10 +20,15 @@ const InputView = {
   },
 
   async readMenuInfo() {
-    const menuInfo = (await this.read(INPUT_MESSAGE.orderMenus))
-      .split(SYMBOLS.comma)
-      .map((inputMenuInfo) => inputMenuInfo.split(SYMBOLS.hyphen))
-      .map(([menuName, count]) => [menuName, Number(count)]);
+    const parseMenuInfo = (menuString) => {
+      const [menuName, quantity] = menuString.split(SYMBOLS.hyphen);
+      return [menuName, Number(quantity)];
+    };
+
+    const menuInfo = Array.from(
+      (await this.read(INPUT_MESSAGE.orderMenus)).split(SYMBOLS.comma),
+      parseMenuInfo,
+    );
     menuValidation.check(menuInfo);
 
     return menuInfo;
