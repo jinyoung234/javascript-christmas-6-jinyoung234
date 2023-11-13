@@ -59,7 +59,7 @@ const menuValidation = Object.freeze({
     }),
 
     noDuplicatesMenu: Object.freeze({
-      errorMessage: '중복된 메뉴 항목입니다. 다시 입력해 주세요.',
+      errorMessage: INVALID_MENU_MESSAGE,
       isValid(orders) {
         const uniqueItems = new Set(orders.map(([menuName]) => menuName));
         return uniqueItems.size === orders.length;
