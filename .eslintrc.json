@@ -18,6 +18,7 @@
     "sourceType": "module"
   },
   "rules": {
+    "no-use-before-define": ["off"],
     "import/prefer-default-export": ["off"],
     "import/extensions": ["off"],
     // 들여쓰기 깊이 제한
