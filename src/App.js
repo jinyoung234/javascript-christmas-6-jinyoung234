@@ -1,7 +1,7 @@
-import PlannerController from './controller/PlannerController.js';
+import christmasPromotionController from './controller/PlannerController.js';
 
 class App {
-  #controller = new PlannerController();
+  #controller = christmasPromotionController;
 
   async run() {
     await this.#controller.play();
