@@ -1,4 +1,3 @@
-import menuFinder from '../menuFinder/module';
 import orderAmountCalculation from './module';
 
 describe('총 주문 금액 계산 테스트', () => {
@@ -22,7 +21,7 @@ describe('총 주문 금액 계산 테스트', () => {
     '메뉴 정보를 통해 할인 전 주문한 총 금액은 $expected원 이어야 한다',
     ({ menuInfo, expected }) => {
       // given - when
-      const result = orderAmountCalculation.calculateAmount(menuFinder, menuInfo);
+      const result = orderAmountCalculation.calculateAmount(menuInfo);
 
       // then
       expect(result).toBe(expected);
