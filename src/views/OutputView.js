@@ -2,6 +2,14 @@ import { Console } from '@woowacourse/mission-utils';
 import { FORMAT_MESSAGE, OUTPUT_MESSAGE } from '../constants/messages.js';
 
 const OutputView = {
+  printStartGuideComments() {
+    Console.print(OUTPUT_MESSAGE.guideComments);
+  },
+
+  printEndGuideComments(visitDate) {
+    Console.print(FORMAT_MESSAGE.endGuideComments(visitDate));
+  },
+
   printEventResult({
     menuInfo,
     eventResult: { totalOrderAmount, benefitAmountInfo, benefitInfo, eventBadge },
@@ -43,7 +51,9 @@ function printBenefitHistory(benefitInfo) {
 function printTotalBenefitAmount(totalRewardAmount) {
   printSection(
     OUTPUT_MESSAGE.title.totalBenefitAmount,
-    totalRewardAmount !== 0 ? `-${FORMAT_MESSAGE.amount(totalRewardAmount)}` : null,
+    totalRewardAmount !== 0
+      ? `-${FORMAT_MESSAGE.amount(totalRewardAmount)}`
+      : `${FORMAT_MESSAGE.amount(0)}`,
   );
 }
 

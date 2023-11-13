@@ -5,26 +5,25 @@ import systemErrorHandler from '../errors/systemErrorHandler.js';
 
 const christmasPromotionController = {
   async play() {
-    const visitDate = await processInputVisitDate();
-    const menuInfo = await processInputMenuInfo();
+    const { visitDate, menuInfo } = await processUserInput();
 
     processEventResult({ visitDate, menuInfo });
   },
 };
 
-async function processInputVisitDate() {
+async function processUserInput() {
+  OutputView.printStartGuideComments();
+
   const visitDate = await systemErrorHandler.retryOnErrors(InputView.readVisitDate.bind(InputView));
+  const menuInfo = await systemErrorHandler.retryOnErrors(InputView.readMenuInfo.bind(InputView));
 
-  return visitDate < 10 ? new Date(`2023-12-0${visitDate}`) : new Date(`2023-12-${visitDate}`);
-}
-
-async function processInputMenuInfo() {
-  return systemErrorHandler.retryOnErrors(InputView.readMenuInfo.bind(InputView));
+  return { visitDate, menuInfo };
 }
 
 function processEventResult({ visitDate, menuInfo }) {
   const eventResult = eventResultService.createEventResult({ visitDate, menuInfo });
 
+  OutputView.printEndGuideComments(visitDate);
   OutputView.printEventResult({ menuInfo, eventResult });
 }
 

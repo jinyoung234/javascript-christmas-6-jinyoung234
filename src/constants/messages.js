@@ -5,6 +5,8 @@ export const INPUT_MESSAGE = Object.freeze({
 });
 
 export const OUTPUT_MESSAGE = Object.freeze({
+  guideComments: '안녕하세요! 우테코 식당 12월 이벤트 플래너입니다.',
+
   title: Object.freeze({
     orderMenu: '주문 메뉴',
     totalOrderAmount: '할인 전 총주문 금액',
@@ -25,6 +27,17 @@ export const OUTPUT_MESSAGE = Object.freeze({
 });
 
 export const FORMAT_MESSAGE = Object.freeze({
+  date(date) {
+    const month = date.getMonth() + 1;
+    const day = date.getDate();
+
+    return `${month}월 ${day}일`;
+  },
+
+  endGuideComments(visitDate) {
+    return `${this.date(visitDate)}에 우테코 식당에서 받을 이벤트 혜택 미리 보기!`;
+  },
+
   title(config, title) {
     return `${config.newLine ? '\n' : ''}<${title}>`;
   },

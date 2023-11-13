@@ -16,7 +16,7 @@ const InputView = {
     const visitDate = Number(await this.read(INPUT_MESSAGE.visitDate));
     visitDateValidation.check(visitDate);
 
-    return visitDate;
+    return visitDate < 10 ? new Date(`2023-12-0${visitDate}`) : new Date(`2023-12-${visitDate}`);
   },
 
   async readMenuInfo() {
