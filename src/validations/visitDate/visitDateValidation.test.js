@@ -1,5 +1,5 @@
-import AppError from '../../src/errors/appError';
-import { visitDateValidation } from '../../src/validations';
+import AppError from '../../errors/AppError/module';
+import { visitDateValidation } from '..';
 
 describe('visitDateValidation 테스트', () => {
   const startVisitDateValidation = (visitDate) => () => visitDateValidation.check(visitDate);

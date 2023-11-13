@@ -1,5 +1,5 @@
 import { Console } from '@woowacourse/mission-utils';
-import { FORMAT_MESSAGE, OUTPUT_MESSAGE } from '../constants/messages.js';
+import { FORMAT_MESSAGE, OUTPUT_MESSAGE } from '../constants/messages/module.js';
 
 const OutputView = {
   printStartGuideComments() {

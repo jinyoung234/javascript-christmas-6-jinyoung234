@@ -1,4 +1,4 @@
-import { FORMAT_MESSAGE } from '../../src/constants/messages';
+import { FORMAT_MESSAGE } from './module';
 
 describe('메시지 포맷 테스트', () => {
   describe('orderMenus 테스트', () => {

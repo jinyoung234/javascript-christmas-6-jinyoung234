@@ -1,10 +1,10 @@
-import { PROMOTION_DATE_INFO } from '../../src/constants/promotionSystem';
+import { PROMOTION_DATE_INFO } from '../../constants/promotionSystem';
 import {
   BENEFIT_AMOUNT_INFO,
   INITIAL_BENEFIT_INFO,
   MINIMUM_ORDER_AMOUNT_FOR_GIFT,
-} from '../../src/domain/benefitCalculation/constant';
-import benefitCalculation from '../../src/domain/benefitCalculation/module';
+} from './constant';
+import benefitCalculation from './module';
 
 describe('프로모션 내 혜택 내역 계산 테스트', () => {
   // given

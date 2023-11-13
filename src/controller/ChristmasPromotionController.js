@@ -1,7 +1,7 @@
 import InputView from '../views/InputView.js';
 import OutputView from '../views/OutputView.js';
 import eventResultService from '../service/EventResultService.js';
-import systemErrorHandler from '../errors/systemErrorHandler.js';
+import systemErrorHandler from '../errors/systemErrorHandler/module.js';
 
 const christmasPromotionController = {
   async play() {

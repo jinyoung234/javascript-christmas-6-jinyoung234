@@ -1,4 +1,4 @@
-import menuFinder from '../../src/domain/menuFinder/module';
+import menuFinder from './module';
 
 describe('메뉴 찾기 테스트', () => {
   describe('findByMenuName 테스트', () => {

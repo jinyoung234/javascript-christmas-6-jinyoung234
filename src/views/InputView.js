@@ -1,6 +1,6 @@
 import { Console } from '@woowacourse/mission-utils';
 
-import { INPUT_MESSAGE } from '../constants/messages.js';
+import { INPUT_MESSAGE } from '../constants/messages/module.js';
 import { SYMBOLS } from '../constants/symbols.js';
 import { PROMOTION_DATE_INFO } from '../constants/promotionSystem.js';
 
