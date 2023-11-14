@@ -18,19 +18,19 @@ const OutputView = {
   },
 
   /**
-   * @param {import('../utils/jsDoc.js').PrintEventResultParams} params - 주문한 메뉴 정보 및 이벤트 결과에 대한 정보가 담긴 객체
+   * @param {import('../utils/jsDoc.js').PrintPromotionResultParams} params - 주문한 메뉴 정보 및 이벤트 결과에 대한 정보가 담긴 객체
    */
-  printEventResult({
+  printPromotionResult({
     menuInfo,
-    eventResult: { totalOrderAmount, benefitAmountInfo, benefitInfo, eventBadge },
+    promotionResult: { totalOrderAmount, promotionReceipt, promotionBenefitResult, eventBadge },
   }) {
     printOrderMenu(menuInfo);
     printTotalOrderAmount(totalOrderAmount);
 
-    printGiftMenu(benefitInfo);
-    printBenefitHistory(benefitInfo);
-    printTotalBenefitAmount(benefitAmountInfo.totalRewardAmount);
-    printExpectPaymentAmount(benefitAmountInfo.expectPaymentAmount);
+    printGiftMenu(promotionBenefitResult.giftAmount);
+    printBenefitHistory(promotionBenefitResult);
+    printTotalBenefitAmount(promotionReceipt.totalBenefitAmount);
+    printExpectPaymentAmount(promotionReceipt.expectPaymentAmount);
     printEventBadge(eventBadge);
   },
 };
@@ -54,30 +54,30 @@ function printTotalOrderAmount(totalOrderAmount) {
 }
 
 /**
- * @param {{giftAmount : number}} params - 증정 금액이 담긴 객체
+ * @param {number} giftAmount - 증정 이벤트의 당첨 액수
  */
-function printGiftMenu({ giftAmount }) {
+function printGiftMenu(giftAmount) {
   printSection(OUTPUT_MESSAGE.title.giftMenu, giftAmount !== 0 ? OUTPUT_MESSAGE.gift : null);
 }
 
 /**
- * @param {import('../utils/jsDoc.js').BenefitInfo} benefitInfo - 혜택 정보 객체
+ * @param {import('../utils/jsDoc.js').PromotionBenefitResult} promotionBenefits - 혜택 정보 객체
  */
-function printBenefitHistory(benefitInfo) {
+function printBenefitHistory(promotionBenefits) {
   printSection(
     OUTPUT_MESSAGE.title.benefitHistory,
-    FORMAT_MESSAGE.benefitHistory(benefitInfo) || null,
+    FORMAT_MESSAGE.benefitHistory(promotionBenefits) || null,
   );
 }
 
 /**
- * @param {number} totalRewardAmount - 총 혜택 금액
+ * @param {number} totalBenefitAmount - 총 혜택 금액
  */
-function printTotalBenefitAmount(totalRewardAmount) {
+function printTotalBenefitAmount(totalBenefitAmount) {
   printSection(
     OUTPUT_MESSAGE.title.totalBenefitAmount,
-    totalRewardAmount !== 0
-      ? `-${FORMAT_MESSAGE.amount(totalRewardAmount)}`
+    totalBenefitAmount !== 0
+      ? `-${FORMAT_MESSAGE.amount(totalBenefitAmount)}`
       : `${FORMAT_MESSAGE.amount(0)}`,
   );
 }

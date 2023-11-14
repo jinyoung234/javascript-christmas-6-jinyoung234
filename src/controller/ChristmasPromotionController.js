@@ -1,20 +1,20 @@
 import InputView from '../views/InputView.js';
 import OutputView from '../views/OutputView.js';
-import eventResultService from '../service/EventResultService.js';
-import systemErrorHandler from '../errors/systemErrorHandler/module.js';
+import PromotionResultService from '../service/PromotionResultService.js';
+import SystemErrorHandler from '../errors/SystemErrorHandler/module.js';
 
 /**
- * @module christmasPromotionController
- * 크리스마스 프로모션 이벤트 관련 애플리케이션을 만들기 위한 컨트롤러
+ * @module ChristmasPromotionController
+ * 크리스마스 프로모션 이벤트 관련 애플리케이션의 흐름 제어를 담당
  */
-const christmasPromotionController = {
+const ChristmasPromotionController = {
   /**
    * @returns {Promise<void>}
    */
   async play() {
     const { visitDate, menuInfo } = await processUserInput();
 
-    processEventResult({ visitDate, menuInfo });
+    processPromotionResult({ visitDate, menuInfo });
   },
 };
 
@@ -24,8 +24,8 @@ const christmasPromotionController = {
 async function processUserInput() {
   OutputView.printStartGuideComments();
 
-  const visitDate = await systemErrorHandler.retryOnErrors(InputView.readVisitDate.bind(InputView));
-  const menuInfo = await systemErrorHandler.retryOnErrors(InputView.readMenuInfo.bind(InputView));
+  const visitDate = await SystemErrorHandler.retryOnErrors(InputView.readVisitDate.bind(InputView));
+  const menuInfo = await SystemErrorHandler.retryOnErrors(InputView.readMenuInfo.bind(InputView));
 
   return { visitDate, menuInfo };
 }
@@ -34,11 +34,11 @@ async function processUserInput() {
  * @param {{visitDate : number, menuInfo : [string, number][]}} params - 유저가 입력한 방문 일자 및 메뉴 정보
  * @returns {void}
  */
-function processEventResult({ visitDate, menuInfo }) {
-  const eventResult = eventResultService.createEventResult({ visitDate, menuInfo });
+function processPromotionResult({ visitDate, menuInfo }) {
+  const promotionResult = PromotionResultService.createPromotionResult({ visitDate, menuInfo });
 
   OutputView.printEndGuideComments(visitDate);
-  OutputView.printEventResult({ menuInfo, eventResult });
+  OutputView.printPromotionResult({ menuInfo, promotionResult });
 }
 
-export default christmasPromotionController;
+export default ChristmasPromotionController;

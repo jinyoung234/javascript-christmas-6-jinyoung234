@@ -1,4 +1,4 @@
-import menuFinder from './module';
+import MenuFinder from './module';
 
 describe('메뉴 찾기 테스트', () => {
   describe('findByMenuName 테스트', () => {
@@ -19,7 +19,7 @@ describe('메뉴 찾기 테스트', () => {
       '메뉴 이름 $menuName과 카테고리 $category로 메뉴를 찾으면 $expectedMenu를 반환해야 한다',
       ({ menuName, category, expectedMenu }) => {
         // given - when
-        const menu = menuFinder.findByMenuName(menuName, category);
+        const menu = MenuFinder.findByMenuName(menuName, category);
 
         // then
         expect(menu).toEqual(expectedMenu);
@@ -37,7 +37,7 @@ describe('메뉴 찾기 테스트', () => {
       '$menuName가 $category 카테고리에 속하는지 확인하면 $expectedResult를 반환해야 한다',
       ({ menuName, category, expectedResult }) => {
         // given - when
-        const result = menuFinder.isMenuInCategory(menuName, category);
+        const result = MenuFinder.isMenuInCategory(menuName, category);
 
         // then
         expect(result).toBe(expectedResult);

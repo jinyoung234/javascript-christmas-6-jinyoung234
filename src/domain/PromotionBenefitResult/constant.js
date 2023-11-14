@@ -1,11 +1,11 @@
 import { PROMOTION_DATE_INFO } from '../../constants/promotionSystem.js';
 
 // constant.js는 테스트 코드 및 module.js에서만 사용
-export const INITIAL_BENEFIT_INFO = Object.freeze({
-  xmasDiscountAmount: 0,
-  weekDayDiscountAmount: 0,
-  weekendDiscountAmount: 0,
-  specialDiscountAmount: 0,
+export const INITIAL_PROMOTION_BENEFIT_RESULT = Object.freeze({
+  xmasBenefitAmount: 0,
+  weekDayBenefitAmount: 0,
+  weekendBenefitAmount: 0,
+  specialBenefitAmount: 0,
   giftAmount: 0,
 });
 

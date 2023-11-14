@@ -19,11 +19,11 @@ export const OUTPUT_MESSAGE = Object.freeze({
     eventBadge: `${PROMOTION_DATE_INFO.month}월 이벤트 배지`,
   }),
 
-  discountLabels: Object.freeze({
-    xmasDiscountAmount: '크리스마스 디데이 할인',
-    weekDayDiscountAmount: '평일 할인',
-    weekendDiscountAmount: '주말 할인',
-    specialDiscountAmount: '특별 할인',
+  benefitLabels: Object.freeze({
+    xmasBenefitAmount: '크리스마스 디데이 할인',
+    weekDayBenefitAmount: '평일 할인',
+    weekendBenefitAmount: '주말 할인',
+    specialBenefitAmount: '특별 할인',
     giftAmount: '증정 이벤트',
   }),
 
@@ -58,7 +58,7 @@ export const FORMAT_MESSAGE = Object.freeze({
       .reduce(
         (acc, [benefitName, amount]) =>
           amount !== 0
-            ? [...acc, `${OUTPUT_MESSAGE.discountLabels[benefitName]}: -${this.amount(amount)}`]
+            ? [...acc, `${OUTPUT_MESSAGE.benefitLabels[benefitName]}: -${this.amount(amount)}`]
             : acc,
         [],
       )

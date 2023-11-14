@@ -1,10 +1,10 @@
 import { PROMOTION_DATE_INFO } from '../../constants/promotionSystem';
 import { BENEFIT_AMOUNT_INFO, MINIMUM_ORDER_AMOUNT_FOR_GIFT } from './constant';
-import benefitCalculation from './module';
+import PromotionBenefitResult from './module';
 
 describe('프로모션 내 혜택 내역 계산 테스트', () => {
   // given
-  const createRewardInfo = (ordererInfo) => benefitCalculation.calculateBenefit(ordererInfo);
+  const createBenefitResult = (ordererInfo) => PromotionBenefitResult.receive(ordererInfo);
 
   const createOrdererInfoTestCase = ({
     visitDate = 3,
@@ -21,6 +21,8 @@ describe('프로모션 내 혜택 내역 계산 테스트', () => {
     totalOrderAmount,
   });
 
+  // TODO: 10000원 미만이라 이벤트 자체가 적용되지 않는 case도 테스트 추가
+
   describe('평일 할인 적용 여부 테스트', () => {
     test.each([
       {
@@ -28,8 +30,8 @@ describe('프로모션 내 혜택 내역 계산 테스트', () => {
         ordererInfo: {
           ...createOrdererInfoTestCase(),
         },
-        expectedDiscountInfo: {
-          weekDayDiscountAmount: 2 * BENEFIT_AMOUNT_INFO.dayOfWeek,
+        expectedBenefitInfo: {
+          weekDayBenefitAmount: 2 * BENEFIT_AMOUNT_INFO.dayOfWeek,
         },
       },
       {
@@ -39,16 +41,16 @@ describe('프로모션 내 혜택 내역 계산 테스트', () => {
             visitDate: 2,
           }),
         },
-        expectedDiscountInfo: {
-          weekDayDiscountAmount: 0,
+        expectedBenefitInfo: {
+          weekDayBenefitAmount: 0,
         },
       },
-    ])('$description', ({ ordererInfo, expectedDiscountInfo }) => {
+    ])('$description', ({ ordererInfo, expectedBenefitInfo }) => {
       // given - when
-      const rewardInfo = createRewardInfo(ordererInfo);
+      const benefitResult = createBenefitResult(ordererInfo);
 
       // then
-      expect(rewardInfo.weekDayDiscountAmount).toBe(expectedDiscountInfo.weekDayDiscountAmount);
+      expect(benefitResult.weekDayBenefitAmount).toBe(expectedBenefitInfo.weekDayBenefitAmount);
     });
   });
 
@@ -61,8 +63,8 @@ describe('프로모션 내 혜택 내역 계산 테스트', () => {
             visitDate: 2,
           }),
         },
-        expectedDiscountInfo: {
-          weekendDiscountAmount: BENEFIT_AMOUNT_INFO.dayOfWeek * 2,
+        expectedBenefitInfo: {
+          weekendBenefitAmount: BENEFIT_AMOUNT_INFO.dayOfWeek * 2,
         },
       },
       {
@@ -70,16 +72,16 @@ describe('프로모션 내 혜택 내역 계산 테스트', () => {
         ordererInfo: {
           ...createOrdererInfoTestCase(),
         },
-        expectedDiscountInfo: {
-          weekendDiscountAmount: 0,
+        expectedBenefitInfo: {
+          weekendBenefitAmount: 0,
         },
       },
-    ])('$description', ({ ordererInfo, expectedDiscountInfo }) => {
+    ])('$description', ({ ordererInfo, expectedBenefitInfo }) => {
       // given - when
-      const rewardInfo = createRewardInfo(ordererInfo);
+      const benefitResult = createBenefitResult(ordererInfo);
 
       // then
-      expect(rewardInfo.weekendDiscountAmount).toBe(expectedDiscountInfo.weekendDiscountAmount);
+      expect(benefitResult.weekendBenefitAmount).toBe(expectedBenefitInfo.weekendBenefitAmount);
     });
   });
 
@@ -90,12 +92,12 @@ describe('프로모션 내 혜택 내역 계산 테스트', () => {
         ordererInfo: {
           ...createOrdererInfoTestCase({ visitDate: 1 }),
         },
-        expectedDiscountInfo: {
-          xmasDiscountAmount: BENEFIT_AMOUNT_INFO.christmas,
+        expectedBenefitInfo: {
+          xmasBenefitAmount: BENEFIT_AMOUNT_INFO.christmas,
           giftAmount: 25000,
-          specialDiscountAmount: 0,
-          weekDayDiscountAmount: 0,
-          weekendDiscountAmount: BENEFIT_AMOUNT_INFO.dayOfWeek * 2,
+          specialBenefitAmount: 0,
+          weekDayBenefitAmount: 0,
+          weekendBenefitAmount: BENEFIT_AMOUNT_INFO.dayOfWeek * 2,
         },
       },
       {
@@ -105,20 +107,20 @@ describe('프로모션 내 혜택 내역 계산 테스트', () => {
             visitDate: 31,
           }),
         },
-        expectedDiscountInfo: {
-          xmasDiscountAmount: 0,
-          weekDayDiscountAmount: BENEFIT_AMOUNT_INFO.dayOfWeek * 2,
-          weekendDiscountAmount: 0,
-          specialDiscountAmount: BENEFIT_AMOUNT_INFO.special,
+        expectedBenefitInfo: {
+          xmasBenefitAmount: 0,
+          weekDayBenefitAmount: BENEFIT_AMOUNT_INFO.dayOfWeek * 2,
+          weekendBenefitAmount: 0,
+          specialBenefitAmount: BENEFIT_AMOUNT_INFO.special,
           giftAmount: 25000,
         },
       },
-    ])('$description', ({ ordererInfo, expectedDiscountInfo }) => {
+    ])('$description', ({ ordererInfo, expectedBenefitInfo }) => {
       // given - when
-      const rewardInfo = createRewardInfo(ordererInfo);
+      const benefitResult = createBenefitResult(ordererInfo);
 
       // then
-      expect(rewardInfo).toStrictEqual(expectedDiscountInfo);
+      expect(benefitResult).toStrictEqual(expectedBenefitInfo);
     });
   });
 
@@ -135,7 +137,7 @@ describe('프로모션 내 혜택 내역 계산 테스트', () => {
           ],
           totalOrderAmount: 88000,
         },
-        expectedDiscountInfo: {
+        expectedBenefitInfo: {
           giftAmount: 0,
         },
       },
@@ -144,15 +146,15 @@ describe('프로모션 내 혜택 내역 계산 테스트', () => {
         ordererInfo: {
           ...createOrdererInfoTestCase(),
         },
-        expectedDiscountInfo: {
+        expectedBenefitInfo: {
           giftAmount: 25000,
         },
       },
-    ])('$description', ({ ordererInfo, expectedDiscountInfo }) => {
+    ])('$description', ({ ordererInfo, expectedBenefitInfo }) => {
       // given - when
-      const rewardInfo = createRewardInfo(ordererInfo);
+      const benefitResult = createBenefitResult(ordererInfo);
       // then
-      expect(rewardInfo.giftAmount).toBe(expectedDiscountInfo.giftAmount);
+      expect(benefitResult.giftAmount).toBe(expectedBenefitInfo.giftAmount);
     });
   });
 
@@ -165,8 +167,8 @@ describe('프로모션 내 혜택 내역 계산 테스트', () => {
             visitDate: 26,
           }),
         },
-        expectedDiscountInfo: {
-          xmasDiscountAmount: 0,
+        expectedBenefitInfo: {
+          xmasBenefitAmount: 0,
         },
       },
       {
@@ -176,16 +178,16 @@ describe('프로모션 내 혜택 내역 계산 테스트', () => {
             visitDate: 24,
           }),
         },
-        expectedDiscountInfo: {
-          xmasDiscountAmount: 3300,
+        expectedBenefitInfo: {
+          xmasBenefitAmount: 3300,
         },
       },
-    ])('$description', ({ ordererInfo, expectedDiscountInfo }) => {
+    ])('$description', ({ ordererInfo, expectedBenefitInfo }) => {
       // given - when
-      const rewardInfo = createRewardInfo(ordererInfo);
+      const benefitResult = createBenefitResult(ordererInfo);
 
       // then
-      expect(rewardInfo.xmasDiscountAmount).toBe(expectedDiscountInfo.xmasDiscountAmount);
+      expect(benefitResult.xmasBenefitAmount).toBe(expectedBenefitInfo.xmasBenefitAmount);
     });
   });
 
@@ -196,56 +198,56 @@ describe('프로모션 내 혜택 내역 계산 테스트', () => {
         ordererInfo: createOrdererInfoTestCase({
           visitDate: 3,
         }),
-        expectedDiscountInfo: { specialDiscountAmount: BENEFIT_AMOUNT_INFO.special },
+        expectedBenefitInfo: { specialBenefitAmount: BENEFIT_AMOUNT_INFO.special },
       },
       {
         description: `${PROMOTION_DATE_INFO.month}월 10일은 특별 할인 이벤트가 적용된다.`,
         ordererInfo: createOrdererInfoTestCase({
           visitDate: 10,
         }),
-        expectedDiscountInfo: { specialDiscountAmount: BENEFIT_AMOUNT_INFO.special },
+        expectedBenefitInfo: { specialBenefitAmount: BENEFIT_AMOUNT_INFO.special },
       },
       {
         description: `${PROMOTION_DATE_INFO.month}월 17일은 특별 할인 이벤트가 적용된다.`,
         ordererInfo: createOrdererInfoTestCase({
           visitDate: 17,
         }),
-        expectedDiscountInfo: { specialDiscountAmount: BENEFIT_AMOUNT_INFO.special },
+        expectedBenefitInfo: { specialBenefitAmount: BENEFIT_AMOUNT_INFO.special },
       },
       {
         description: `${PROMOTION_DATE_INFO.month}월 24일은 특별 할인 이벤트가 적용된다.`,
         ordererInfo: createOrdererInfoTestCase({
           visitDate: 24,
         }),
-        expectedDiscountInfo: { specialDiscountAmount: BENEFIT_AMOUNT_INFO.special },
+        expectedBenefitInfo: { specialBenefitAmount: BENEFIT_AMOUNT_INFO.special },
       },
       {
         description: `${PROMOTION_DATE_INFO.month}월 25일은 특별 할인 이벤트가 적용된다.`,
         ordererInfo: createOrdererInfoTestCase({
           visitDate: 25,
         }),
-        expectedDiscountInfo: { specialDiscountAmount: BENEFIT_AMOUNT_INFO.special },
+        expectedBenefitInfo: { specialBenefitAmount: BENEFIT_AMOUNT_INFO.special },
       },
       {
         description: `${PROMOTION_DATE_INFO.month}월 31일은 특별 할인 이벤트가 적용된다.`,
         ordererInfo: createOrdererInfoTestCase({
           visitDate: 31,
         }),
-        expectedDiscountInfo: { specialDiscountAmount: BENEFIT_AMOUNT_INFO.special },
+        expectedBenefitInfo: { specialBenefitAmount: BENEFIT_AMOUNT_INFO.special },
       },
       {
         description: `${PROMOTION_DATE_INFO.month}월 30일은 특별 할인 이벤트가 적용되지 않는다.`,
         ordererInfo: createOrdererInfoTestCase({
           visitDate: 30,
         }),
-        expectedDiscountInfo: { specialDiscountAmount: 0 },
+        expectedBenefitInfo: { specialBenefitAmount: 0 },
       },
-    ])('$description', ({ ordererInfo, expectedDiscountInfo }) => {
+    ])('$description', ({ ordererInfo, expectedBenefitInfo }) => {
       // given - when
-      const rewardInfo = createRewardInfo(ordererInfo);
+      const benefitResult = createBenefitResult(ordererInfo);
 
       // then
-      expect(rewardInfo.specialDiscountAmount).toBe(expectedDiscountInfo.specialDiscountAmount);
+      expect(benefitResult.specialBenefitAmount).toBe(expectedBenefitInfo.specialBenefitAmount);
     });
   });
 });

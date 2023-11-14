@@ -47,11 +47,11 @@
  */
 
 /**
- * @typedef {object} BenefitInfo
- * @property {number} xmasDiscountAmount - 크리스마스 디데이 이벤트 할인 금액
- * @property {number} weekDayDiscountAmount - 평일 할인 금액
- * @property {number} weekendDiscountAmount - 주말 할인 금액
- * @property {number} specialDiscountAmount - 특별 할인 금액
+ * @typedef {object} PromotionBenefitResult
+ * @property {number} xmasBenefitAmount - 크리스마스 디데이 이벤트 할인 금액
+ * @property {number} weekDayBenefitAmount - 평일 할인 금액
+ * @property {number} weekendBenefitAmount - 주말 할인 금액
+ * @property {number} specialBenefitAmount - 특별 할인 금액
  * @property {number} giftAmount - 증정 금액
  */
 
@@ -66,12 +66,12 @@
  */
 
 /**
- * @typedef {{benefitInfo : BenefitInfo, totalOrderAmount : number}} CreateBenefitAmountInfoParams
+ * @typedef {{promotionBenefitResult : PromotionBenefitResult, totalOrderAmount : number}} CreateBenefitAmountInfoParams
  */
 
 /**
- * @typedef {object} BenefitAmountInfo
- * @property {number} totalRewardAmount - 총 혜택 금액
+ * @typedef {object} PromotionReceipt
+ * @property {number} totalBenefitAmount - 총 혜택 금액
  * @property {number} expectPaymentAmount - 예상 지출 금액
  */
 
@@ -80,14 +80,14 @@
  */
 
 /**
- * @typedef {{menuInfo : [string, number][], eventResult : EventResult}} PrintEventResultParams
+ * @typedef {{menuInfo : [string, number][], promotionResult : PromotionResult}} PrintPromotionResultParams
  */
 
 /**
- * @typedef {object} EventResult
+ * @typedef {object} PromotionResult
  * @property {number} totalOrderAmount - 총 주문 금액
- * @property {BenefitAmountInfo} benefitAmountInfo - 평일 할인 금액
- * @property {BenefitInfo} benefitInfo - 혜택 정보
+ * @property {PromotionReceipt} promotionReceipt - 프로모션 후 영수증(총 혜택 금액 / 예상 지출 금액)
+ * @property {PromotionBenefitResult} promotionBenefitResult - 각종 혜택 결과(크리스마스 디데이 혜택/주말 혜택/평일 혜택/특별 혜택/증정 이벤트)
  * @property {EventBadge | null} eventBadge - 이벤트 뱃지
  */
 
