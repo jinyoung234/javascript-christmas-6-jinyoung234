@@ -35,18 +35,15 @@ const InputView = {
    * @returns {[string, number][]} 유저가 입력한 메뉴 및 수량 들의 배열
    */
   async readMenuInfo() {
+    const inputMenuInfo = await this.read(INPUT_MESSAGE.orderMenus);
+    menuValidation.check(inputMenuInfo);
+
     const parseMenuInfo = (menuString) => {
       const [menuName, quantity] = menuString.split(SYMBOLS.hyphen);
       return [menuName, Number(quantity)];
     };
 
-    const menuInfo = Array.from(
-      (await this.read(INPUT_MESSAGE.orderMenus)).split(SYMBOLS.comma),
-      parseMenuInfo,
-    );
-    menuValidation.check(menuInfo);
-
-    return menuInfo;
+    return Array.from(inputMenuInfo.split(SYMBOLS.comma), parseMenuInfo);
   },
 };
 

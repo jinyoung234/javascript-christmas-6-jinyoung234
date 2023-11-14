@@ -30,7 +30,6 @@
 
 /**
  * @typedef {object} MenuValidationTypes
- * @property {MenuValidationType} menuCategory - 주문 메뉴가 유효한 범주에 속하는지 검사하기 위한 객체
  * @property {MenuValidationType} existMenu - 주문 메뉴가 존재하는지 검사하기 위한 객체
  * @property {MenuValidationType} numberOfMenuCount - 주문 메뉴 수량이 숫자인지 검사하기 위한 객체
  * @property {MenuValidationType} singleMenuCount - 단일 메뉴의 수량이 최소 갯수 이상인지 검사하기 위한 객체
