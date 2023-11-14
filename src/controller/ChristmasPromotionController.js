@@ -25,7 +25,7 @@ async function processUserInput() {
   OutputView.printStartGuideComments();
 
   const visitDate = await ErrorHandler.retryOnErrors(InputView.readVisitDate.bind(InputView));
-  const menuInfo = await ErrorHandler.retryOnErrors(InputView.readMenuInfo.bind(InputView));
+  const menuInfo = await ErrorHandler.retryOnErrors(InputView.readOrderMenuInfo.bind(InputView));
 
   return { visitDate, menuInfo };
 }

@@ -6,3 +6,7 @@ export const ORDER_QUANTITY = Object.freeze({
   min: 1,
   max: 20,
 });
+
+export const MENU_ORDER_PATTERN = /^[가-힣]+-[0-9]+(?:,[가-힣]+-[0-9]+)*$/;
+
+export const INVALID_MENU_MESSAGE = '유효하지 않은 주문입니다. 다시 입력해 주세요.';

@@ -1,9 +1,9 @@
 import { Console } from '@woowacourse/mission-utils';
 
 import { INPUT_MESSAGE } from '../constants/messages/module.js';
-import { SYMBOLS } from '../constants/symbols.js';
 
-import { commonValidation, visitDateValidation, menuValidation } from '../validations/index.js';
+import { commonValidation, visitDateValidation, MenuValidator } from '../validator/index.js';
+import { extractOrderMenuInfos } from '../validator/menu/utils.js';
 
 /**
  * @module InputView
@@ -34,16 +34,11 @@ const InputView = {
   /**
    * @returns {[string, number][]} 유저가 입력한 메뉴 및 수량 들의 배열
    */
-  async readMenuInfo() {
-    const inputMenuInfo = await this.read(INPUT_MESSAGE.orderMenus);
-    menuValidation.check(inputMenuInfo);
+  async readOrderMenuInfo() {
+    const inputOrderMenuInfo = await this.read(INPUT_MESSAGE.orderMenus);
+    MenuValidator.check(inputOrderMenuInfo);
 
-    const parseMenuInfo = (menuString) => {
-      const [menuName, quantity] = menuString.split(SYMBOLS.hyphen);
-      return [menuName, Number(quantity)];
-    };
-
-    return Array.from(inputMenuInfo.split(SYMBOLS.comma), parseMenuInfo);
+    return extractOrderMenuInfos(inputOrderMenuInfo);
   },
 };
 

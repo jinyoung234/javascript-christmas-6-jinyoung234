@@ -1,16 +1,14 @@
-import { PROMOTION_MENU_TABLE } from '../../constants/promotionSystem.js';
-import { SYMBOLS } from '../../constants/symbols.js';
 import AppError from '../../errors/AppError/module.js';
+import { PROMOTION_MENU_TABLE } from '../../constants/promotionSystem.js';
 import { startValidation } from '../utils/startValidation.js';
-import { ORDER_QUANTITY } from './constant.js';
-
-export const INVALID_MENU_MESSAGE = '유효하지 않은 주문입니다. 다시 입력해 주세요.';
+import { INVALID_MENU_MESSAGE, MENU_ORDER_PATTERN, ORDER_QUANTITY } from './constant.js';
+import { extractOrderMenuInfos } from './utils.js';
 
 /**
- * @module menuValidation
+ * @module MenuValidator
  * 입력 값에 대한 주문 메뉴 및 수량의 유효성 검사를 수행하는 모듈
  */
-const menuValidation = Object.freeze({
+const MenuValidator = Object.freeze({
   /**
    * @type {import('../../utils/jsDoc.js').MenuValidationTypes}
    */
@@ -70,18 +68,18 @@ const menuValidation = Object.freeze({
     }),
   }),
 
+  /**
+   * @param {string} inputOrders 입력 받은 주문한 메뉴들
+   * @throws {import('../../errors/AppError/module.js').default} 유효성을 만족하지 않을 경우 에러 발생
+   * @returns {void}
+   */
   check(inputOrders) {
-    if (!/^[가-힣]+-[0-9]+(?:,[가-힣]+-[0-9]+)*$/.test(inputOrders))
-      throw new AppError(INVALID_MENU_MESSAGE);
+    if (!MENU_ORDER_PATTERN.test(inputOrders)) throw new AppError(INVALID_MENU_MESSAGE);
 
-    const parseMenuInfo = (menuString) => {
-      const [menuName, quantity] = menuString.split(SYMBOLS.hyphen);
-      return [menuName, Number(quantity)];
-    };
+    const orders = extractOrderMenuInfos(inputOrders);
 
-    const orders = Array.from(inputOrders.split(SYMBOLS.comma), parseMenuInfo);
     startValidation(this.validationTypes, orders);
   },
 });
 
-export default menuValidation;
+export default MenuValidator;

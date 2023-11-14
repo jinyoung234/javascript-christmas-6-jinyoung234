@@ -1,4 +1,4 @@
-import MenuSearcher from '../MenuSearcher/module';
+import MenuSearcher from '../MenuSearcher/module.js';
 
 /**
  * @module OrderTotalAmount
