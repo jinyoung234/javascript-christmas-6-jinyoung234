@@ -5,20 +5,22 @@
 import { startValidation } from '../utils/startValidation.js';
 import { DATE_RANGE } from './constant.js';
 
+const INVALID_VISIT_DATE = '유효하지 않은 날짜입니다. 다시 입력해 주세요.';
+
 const visitDateValidation = Object.freeze({
   /**
    * @type {import('../../utils/jsDoc.js').VisitDateValidationTypes}
    */
   validationTypes: Object.freeze({
     validInteger: Object.freeze({
-      errorMessage: '유효하지 않은 날짜입니다. 다시 입력해 주세요.',
+      errorMessage: INVALID_VISIT_DATE,
       isValid(visitDate) {
-        return !Number.isNaN(visitDate) && Number.isInteger(visitDate) && visitDate >= 0;
+        return !Number.isNaN(visitDate) && Number.isInteger(visitDate) && visitDate > 0;
       },
     }),
 
     validDate: Object.freeze({
-      errorMessage: '유효하지 않은 날짜입니다. 다시 입력해 주세요.',
+      errorMessage: INVALID_VISIT_DATE,
       isValid(visitDate) {
         const { min, max } = DATE_RANGE;
 
