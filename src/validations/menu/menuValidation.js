@@ -20,7 +20,7 @@ const menuValidation = Object.freeze({
       isValid(orders) {
         const allMenus = Object.values(PROMOTION_MENU_TABLE).flatMap((section) => section);
 
-        return orders.some(([menuName]) => allMenus.some((menu) => menu.name === menuName));
+        return orders.every(([menuName]) => allMenus.some((menu) => menu.name === menuName));
       },
     }),
 
