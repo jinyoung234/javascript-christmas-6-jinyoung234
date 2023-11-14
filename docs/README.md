@@ -56,6 +56,8 @@
 
 ## 2) 예외 case
 
+### 메뉴
+
 <details>
 
 <summary> 단일 메뉴 갯수가 1 미만인 경우 </summary>
@@ -105,6 +107,18 @@
 </details>
 
 <br/>
+
+<details>
+
+<summary> 지정된 메뉴 형식이 아닌 경우 </summary>
+
+![지정된 메뉴 형식이 아닌 경우](https://github.com/jinyoung234/javascript-christmas-6-jinyoung234/assets/87177577/5e08cd08-9f83-4b9c-8a2f-e5cd40ecfe0a)
+
+</details>
+
+<br/>
+
+### 방문 날짜
 
 <details>
 
