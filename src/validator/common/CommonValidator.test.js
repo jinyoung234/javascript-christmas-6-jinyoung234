@@ -1,17 +1,17 @@
 import AppError from '../../errors/AppError/module.js';
-import { commonValidation } from '../index.js';
+import CommonValidator from './CommonValidator.js';
 
 describe('validateCommon 테스트', () => {
-  const startValidation = (inputValue) => () => commonValidation.check(inputValue);
+  const startValidation = (inputValue) => () => CommonValidator.check(inputValue);
   describe('예외 테스트', () => {
     test.each([
       {
         input: '',
-        expectedErrorMessage: commonValidation.validationTypes.emptyValues.errorMessage,
+        expectedErrorMessage: CommonValidator.validationTypes.emptyValues.errorMessage,
       },
       {
         input: 'Some text with space',
-        expectedErrorMessage: commonValidation.validationTypes.existSpaces.errorMessage,
+        expectedErrorMessage: CommonValidator.validationTypes.existSpaces.errorMessage,
       },
     ])(
       '입력값이 "$input"일 때 "$expectedErrorMessage" 메시지와 함께 에러가 발생해야 한다.',

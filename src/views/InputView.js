@@ -2,7 +2,7 @@ import { Console } from '@woowacourse/mission-utils';
 
 import { INPUT_MESSAGE } from '../constants/messages/module.js';
 
-import { commonValidation, VisitDateValidator, MenuValidator } from '../validator/index.js';
+import { CommonValidator, VisitDateValidator, MenuValidator } from '../validator/index.js';
 import { extractOrderMenuInfos } from '../validator/menu/utils.js';
 
 /**
@@ -16,7 +16,7 @@ const InputView = {
    */
   async read(message) {
     const inputValue = await Console.readLineAsync(message);
-    commonValidation.check(inputValue);
+    CommonValidator.check(inputValue);
 
     return inputValue;
   },

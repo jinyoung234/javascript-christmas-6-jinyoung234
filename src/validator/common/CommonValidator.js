@@ -2,10 +2,10 @@ import { SYMBOLS } from '../../constants/symbols.js';
 import { startValidation } from '../utils/startValidation.js';
 
 /**
- * @module commonValidation
+ * @module CommonValidator
  * 입력 값에 대한 일반적인 유효성 검사를 수행하는 모듈
  */
-const commonValidation = Object.freeze({
+const CommonValidator = Object.freeze({
   /**
    * @type {import('../../utils/jsDoc.js').CommonValidationTypes}
    */
@@ -35,4 +35,4 @@ const commonValidation = Object.freeze({
   },
 });
 
-export default commonValidation;
+export default CommonValidator;
