@@ -1,11 +1,20 @@
 import AppError from '../../errors/AppError/module';
 import { MenuValidator } from '..';
+import { INVALID_MENU_MESSAGE } from './constant';
 
 describe('MenuValidator 테스트', () => {
   const startMenuValidator = (orders) => () => MenuValidator.check(orders);
 
   describe('예외 테스트', () => {
     test.each([
+      {
+        orders: '양송이수프-1-아이스크림-1',
+        expectedErrorMessage: INVALID_MENU_MESSAGE,
+      },
+      {
+        orders: '양송이수프:1,아이스크림:1',
+        expectedErrorMessage: INVALID_MENU_MESSAGE,
+      },
       {
         orders: 'NotAMenuItem-1',
         expectedErrorMessage: MenuValidator.validationTypes.existMenu.errorMessage,
