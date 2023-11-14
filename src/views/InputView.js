@@ -2,7 +2,7 @@ import { Console } from '@woowacourse/mission-utils';
 
 import { INPUT_MESSAGE } from '../constants/messages/module.js';
 
-import { commonValidation, visitDateValidation, MenuValidator } from '../validator/index.js';
+import { commonValidation, VisitDateValidator, MenuValidator } from '../validator/index.js';
 import { extractOrderMenuInfos } from '../validator/menu/utils.js';
 
 /**
@@ -26,7 +26,7 @@ const InputView = {
    */
   async readVisitDate() {
     const visitDate = Number(await this.read(INPUT_MESSAGE.visitDate));
-    visitDateValidation.check(visitDate);
+    VisitDateValidator.check(visitDate);
 
     return visitDate;
   },

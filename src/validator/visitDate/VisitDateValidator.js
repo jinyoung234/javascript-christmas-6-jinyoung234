@@ -1,13 +1,11 @@
 /**
- * @module visitDateValidation
+ * @module VisitDateValidator
  * 입력 값에 대한 예상 방문 날짜의 유효성 검사를 수행하는 모듈
  */
 import { startValidation } from '../utils/startValidation.js';
-import { DATE_RANGE } from './constant.js';
+import { DATE_RANGE, INVALID_VISIT_DATE } from './constant.js';
 
-const INVALID_VISIT_DATE = '유효하지 않은 날짜입니다. 다시 입력해 주세요.';
-
-const visitDateValidation = Object.freeze({
+const VisitDateValidator = Object.freeze({
   /**
    * @type {import('../../utils/jsDoc.js').VisitDateValidationTypes}
    */
@@ -39,4 +37,4 @@ const visitDateValidation = Object.freeze({
   },
 });
 
-export default visitDateValidation;
+export default VisitDateValidator;
