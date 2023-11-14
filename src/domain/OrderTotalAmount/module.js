@@ -1,4 +1,4 @@
-import MenuFinder from '../MenuFinderMachine/module.js';
+import MenuFinder from '../MenuFinder/module.js';
 
 /**
  * @module OrderTotalAmount

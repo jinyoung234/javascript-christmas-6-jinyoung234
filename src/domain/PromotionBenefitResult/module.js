@@ -1,4 +1,4 @@
-import MenuFinder from '../MenuFinderMachine/module.js';
+import MenuFinder from '../MenuFinder/module.js';
 import { PROMOTION_DATE_INFO } from '../../constants/promotionSystem.js';
 import {
   DAY_OF_BENEFIT_CONDITION,
