@@ -1,4 +1,4 @@
-import OrderTotalAmount from './module';
+import OrderTotalAmount from './module.js';
 
 describe('총 주문 금액 계산 테스트', () => {
   test.each([

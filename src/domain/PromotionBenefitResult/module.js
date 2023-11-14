@@ -1,4 +1,4 @@
-import MenuFinder from '../MenuFinder/module.js';
+import MenuSearcher from '../MenuSearcher/module.js';
 import { PROMOTION_DATE_INFO } from '../../constants/promotionSystem.js';
 import {
   DAY_OF_BENEFIT_CONDITION,
@@ -93,7 +93,7 @@ function calculateBenefitForDayType({ ordererInfo: { menuInfo, visitDate }, menu
   if (!days.includes(visitDay)) return 0;
 
   return menuInfo
-    .filter(([menuName]) => MenuFinder.isMenuInCategory(menuName, menuCategory))
+    .filter(([menuName]) => MenuSearcher.isMenuInCategory(menuName, menuCategory))
     .reduce(
       (totalBenefit, [, quantity]) => totalBenefit + BENEFIT_AMOUNT_INFO.dayOfWeek * quantity,
       0,
@@ -119,7 +119,7 @@ function calculateGiftEvent({ totalOrderAmount }) {
   if (totalOrderAmount < MINIMUM_ORDER_AMOUNT_FOR_GIFT) return 0;
 
   const { menuCategory, menuName } = GIFT_INFO;
-  const champagne = MenuFinder.findByMenuName(menuName, menuCategory);
+  const champagne = MenuSearcher.findByMenuName(menuName, menuCategory);
 
   return champagne?.price ?? 0;
 }

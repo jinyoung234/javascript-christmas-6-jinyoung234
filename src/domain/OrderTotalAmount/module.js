@@ -1,4 +1,4 @@
-import MenuFinder from '../MenuFinder/module.js';
+import MenuSearcher from '../MenuSearcher/module';
 
 /**
  * @module OrderTotalAmount
@@ -12,7 +12,7 @@ const OrderTotalAmount = Object.freeze({
    */
   calculate(menuInfo) {
     return menuInfo.reduce((prevTotalAmount, [menuItemName, quantity]) => {
-      const matchingMenu = MenuFinder.findByMenuName(menuItemName);
+      const matchingMenu = MenuSearcher.findByMenuName(menuItemName);
 
       return prevTotalAmount + (matchingMenu?.price ?? 0) * quantity;
     }, 0);

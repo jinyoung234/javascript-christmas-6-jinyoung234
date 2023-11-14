@@ -1,10 +1,10 @@
 import { PROMOTION_MENU_TABLE } from '../../constants/promotionSystem.js';
 
 /**
- * @module MenuFinder
+ * @module MenuSearcher
  * 메뉴 테이블에 존재하는 메뉴를 찾기 위한 모듈
  */
-const MenuFinder = Object.freeze({
+const MenuSearcher = Object.freeze({
   /**
    * @param {string} menuName - 메뉴 이름
    * @param {string} category - 메뉴 카테고리
@@ -28,4 +28,4 @@ const MenuFinder = Object.freeze({
   },
 });
 
-export default MenuFinder;
+export default MenuSearcher;
