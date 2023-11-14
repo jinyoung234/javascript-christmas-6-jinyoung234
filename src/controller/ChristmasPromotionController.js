@@ -1,7 +1,7 @@
 import InputView from '../views/InputView.js';
 import OutputView from '../views/OutputView.js';
 import PromotionResultService from '../service/PromotionResultService.js';
-import SystemErrorHandler from '../errors/SystemErrorHandler/module.js';
+import ErrorHandler from '../errors/ErrorHandler/module.js';
 
 /**
  * @module ChristmasPromotionController
@@ -24,8 +24,8 @@ const ChristmasPromotionController = {
 async function processUserInput() {
   OutputView.printStartGuideComments();
 
-  const visitDate = await SystemErrorHandler.retryOnErrors(InputView.readVisitDate.bind(InputView));
-  const menuInfo = await SystemErrorHandler.retryOnErrors(InputView.readMenuInfo.bind(InputView));
+  const visitDate = await ErrorHandler.retryOnErrors(InputView.readVisitDate.bind(InputView));
+  const menuInfo = await ErrorHandler.retryOnErrors(InputView.readMenuInfo.bind(InputView));
 
   return { visitDate, menuInfo };
 }
