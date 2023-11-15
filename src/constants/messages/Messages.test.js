@@ -4,7 +4,7 @@ describe('메시지 포맷 테스트', () => {
   describe('orderMenus 테스트', () => {
     test.each([
       {
-        description: '출력 결과는 "피자 2개 - 콜라 1개 이다."',
+        description: '출력 결과는 "피자 2개 - 콜라 1개" 이다.',
         input: [
           ['피자', 2],
           ['콜라', 1],
@@ -21,7 +21,7 @@ describe('메시지 포맷 테스트', () => {
     test.each([
       { input: 5000, output: '5,000원' },
       { input: 0, output: '0원' },
-    ])('amount가 $input일 때, 출력 메시지는 $output이어야 한다', ({ input, output }) => {
+    ])('amount가 $input일 때, 출력 메시지는 "$output"이어야 한다', ({ input, output }) => {
       // given - when - then
       expect(FORMAT_MESSAGE.amount(input)).toBe(output);
     });
@@ -79,12 +79,12 @@ describe('메시지 포맷 테스트', () => {
   describe('gift 테스트', () => {
     test.each([
       {
-        description: 'giftAmount가 있는 경우 샴페인 1개가 증정 된다.',
+        description: '증정 이벤트 금액이 있는 경우 출력 결과는 "샴페인 1개" 이다.',
         input: 25000,
         output: '샴페인 1개',
       },
       {
-        description: `giftAmount가 없는 경우 샴페인이 증정되지 않고 "${OUTPUT_MESSAGE.nothing}"을 반환한다.`,
+        description: `증정 이벤트 금액이 없는 경우 출력 결과는 "${OUTPUT_MESSAGE.nothing}" 이다.`,
         input: 0,
         output: OUTPUT_MESSAGE.nothing,
       },
@@ -115,7 +115,7 @@ describe('메시지 포맷 테스트', () => {
   describe('eventBadge 테스트', () => {
     test.each([
       {
-        description: '입력이 "산타"인 경우 그대로 산타를 반환한다.',
+        description: '입력이 "산타"인 경우 그대로 "산타"를 반환한다.',
         input: '산타',
         output: '산타',
       },
