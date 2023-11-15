@@ -33,7 +33,7 @@ async function processUserInput() {
 }
 
 /**
- * @param {{visitDate : number, menuInfo : [string, number][]}} params - 유저가 입력한 방문 일자 및 메뉴 정보
+ * @param {{visitDate : number, orderMenuInfo : [string, number][]}} params - 유저가 입력한 방문 일자 및 메뉴 정보
  * @returns {void}
  */
 function processPromotionResult({ visitDate, orderMenuInfo }) {
