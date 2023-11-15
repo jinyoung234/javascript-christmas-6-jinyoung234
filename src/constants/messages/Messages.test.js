@@ -25,6 +25,7 @@ describe('메시지 포맷 테스트', () => {
         expect(FORMAT_MESSAGE.amount(input)).toBe(output);
       },
     );
+    // TODO: 0원인 case도 추가
   });
 
   describe('benefitHistory 테스트', () => {
@@ -41,6 +42,7 @@ describe('메시지 포맷 테스트', () => {
         output:
           '크리스마스 디데이 할인: -1,200원\n평일 할인: -4,046원\n특별 할인: -1,000원\n증정 이벤트: -25,000원',
       },
+      // TODO: 모두 0원인 case 추가
     ])('$description', ({ input, output }) => {
       // given - when - then
       expect(FORMAT_MESSAGE.benefitHistory(input)).toBe(output);
@@ -62,6 +64,24 @@ describe('메시지 포맷 테스트', () => {
     ])('$description', ({ input, output }) => {
       // given - when - then
       expect(FORMAT_MESSAGE.title(input.config, input.title)).toBe(output);
+    });
+  });
+
+  describe('gift 테스트', () => {
+    test.each([
+      {
+        description: 'giftAmount가 있는 경우 샴페인 1개가 증정 된다.',
+        input: 25000,
+        output: '샴페인 1개',
+      },
+      {
+        description: 'giftAmount가 없는 경우 샴페인이 증정되지 않고 "없음"을 반환한다.',
+        input: 0,
+        output: '없음',
+      },
+    ])('$description', ({ input: giftAmount, output }) => {
+      // given - when - then
+      expect(FORMAT_MESSAGE.gift(giftAmount)).toBe(output);
     });
   });
 });
