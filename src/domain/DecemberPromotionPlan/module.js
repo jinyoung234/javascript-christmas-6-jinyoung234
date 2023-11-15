@@ -139,5 +139,5 @@ function calculateGiftEvent({ totalOrderAmount }) {
   const { menuCategory, menuName } = GIFT_INFO;
   const champagne = MenuSearcher.findByMenuName(menuName, menuCategory);
 
-  return champagne?.price ?? 0;
+  return champagne.price;
 }
