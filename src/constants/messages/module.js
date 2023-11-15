@@ -78,4 +78,8 @@ export const FORMAT_MESSAGE = Object.freeze({
   gift(giftAmount) {
     return giftAmount === 0 ? OUTPUT_MESSAGE.nothing : OUTPUT_MESSAGE.gift;
   },
+
+  eventBadge(eventBadge) {
+    return eventBadge ?? OUTPUT_MESSAGE.nothing;
+  },
 });

@@ -94,7 +94,7 @@ function printExpectPaymentAmount(expectPaymentAmount) {
  * @param {import('../utils/jsDoc.js').EventBadge | null} eventBadge - 이벤트 뱃지
  */
 function printEventBadge(eventBadge) {
-  printSection(OUTPUT_MESSAGE.title.eventBadge, eventBadge);
+  printSection(OUTPUT_MESSAGE.title.eventBadge, FORMAT_MESSAGE.eventBadge(eventBadge));
 }
 
 /**
