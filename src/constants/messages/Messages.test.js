@@ -18,14 +18,13 @@ describe('메시지 포맷 테스트', () => {
   });
 
   describe('amount 테스트', () => {
-    test.each([{ input: 5000, output: '5,000원' }])(
-      'amount가 $input일 때, 출력 메시지는 $output이어야 한다',
-      ({ input, output }) => {
-        // given - when - then
-        expect(FORMAT_MESSAGE.amount(input)).toBe(output);
-      },
-    );
-    // TODO: 0원인 case도 추가
+    test.each([
+      { input: 5000, output: '5,000원' },
+      { input: 0, output: '0원' },
+    ])('amount가 $input일 때, 출력 메시지는 $output이어야 한다', ({ input, output }) => {
+      // given - when - then
+      expect(FORMAT_MESSAGE.amount(input)).toBe(output);
+    });
   });
 
   describe('benefitHistory 테스트', () => {

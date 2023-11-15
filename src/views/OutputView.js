@@ -76,7 +76,6 @@ function printBenefitHistory(promotionBenefits) {
 function printTotalBenefitAmount(totalBenefitAmount) {
   printSection(
     OUTPUT_MESSAGE.title.totalBenefitAmount,
-    // TODO: amount 내부에 조건식을 넣기
     totalBenefitAmount !== 0
       ? `-${FORMAT_MESSAGE.amount(totalBenefitAmount)}`
       : `${FORMAT_MESSAGE.amount(0)}`,
