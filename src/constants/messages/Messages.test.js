@@ -93,4 +93,22 @@ describe('메시지 포맷 테스트', () => {
       expect(FORMAT_MESSAGE.gift(giftAmount)).toBe(output);
     });
   });
+
+  describe('totalBenefitAmount 테스트', () => {
+    test.each([
+      {
+        description: '입력이 25000인 경우 "-25,000원"을 반환한다.',
+        input: 25000,
+        output: '-25,000원',
+      },
+      {
+        description: '입력이 0인 경우 "0원"을 반환한다.',
+        input: 0,
+        output: '0원',
+      },
+    ])('$description', ({ input: giftAmount, output }) => {
+      // given - when - then
+      expect(FORMAT_MESSAGE.totalBenefitAmount(giftAmount)).toBe(output);
+    });
+  });
 });
