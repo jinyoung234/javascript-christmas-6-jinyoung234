@@ -1,5 +1,10 @@
 import { PROMOTION_DATE_INFO } from '../../constants/promotionSystem';
-import { BENEFIT_AMOUNT_INFO, MINIMUM_ORDER_AMOUNT_FOR_GIFT } from './constant';
+import {
+  BENEFIT_AMOUNT_INFO,
+  MINIMUM_ORDER_AMOUNT_FOR_GIFT,
+  INITIAL_PROMOTION_BENEFIT_RESULT,
+  MINIMUM_TOTAL_ORDER_AMOUNT,
+} from './constant';
 import DecemberPromotionPlan from './module';
 
 describe('12월 이벤트 계획에 따른 혜택 계산 테스트', () => {
@@ -20,7 +25,27 @@ describe('12월 이벤트 계획에 따른 혜택 계산 테스트', () => {
     totalOrderAmount,
   });
 
-  // TODO: 10000원 미만이라 이벤트 자체가 적용되지 않는 case도 테스트 추가
+  describe('프로모션 적용 여부 테스트', () => {
+    test.each([
+      {
+        description: `5000원은 ${MINIMUM_TOTAL_ORDER_AMOUNT}원 미만 이기 때문에 프로모션 적용이 되지 않는다.`,
+        ordererInfo: {
+          visitDate: 3,
+          orderMenuInfo: ['아이스크림', 1],
+          totalOrderAmount: 5000,
+        },
+        expectedBenefitInfo: {
+          ...INITIAL_PROMOTION_BENEFIT_RESULT,
+        },
+      },
+    ])('$description', ({ ordererInfo, expectedBenefitInfo }) => {
+      // given - when
+      const benefitResult = createBenefitResult(ordererInfo);
+
+      // then
+      expect(benefitResult).toStrictEqual(expectedBenefitInfo);
+    });
+  });
 
   describe('평일 할인 적용 여부 테스트', () => {
     test.each([
