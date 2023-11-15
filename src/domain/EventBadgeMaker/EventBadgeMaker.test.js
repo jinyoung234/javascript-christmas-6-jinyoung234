@@ -10,7 +10,7 @@ describe('이벤트 뱃지 생성 테스트', () => {
     { totalBenefitAmount: 4999, expectedBadge: null },
     { totalBenefitAmount: 0, expectedBadge: null },
   ])(
-    '보상금액 $totalBenefitAmount원에 대한 배지는 $expectedBadge 여야 한다',
+    '총 혜택 금액이 $totalBenefitAmount원일 경우 이벤트 배지는 "$expectedBadge" 이다.',
     ({ totalBenefitAmount, expectedBadge }) => {
       // given - when
       const badge = EventBadgeMaker.createByBenefitAmount(totalBenefitAmount);
