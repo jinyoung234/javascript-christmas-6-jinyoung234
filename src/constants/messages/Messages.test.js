@@ -1,4 +1,4 @@
-import { FORMAT_MESSAGE } from './module';
+import { FORMAT_MESSAGE, OUTPUT_MESSAGE } from './module';
 
 describe('메시지 포맷 테스트', () => {
   describe('orderMenus 테스트', () => {
@@ -106,9 +106,27 @@ describe('메시지 포맷 테스트', () => {
         input: 0,
         output: '0원',
       },
-    ])('$description', ({ input: giftAmount, output }) => {
+    ])('$description', ({ input: totalBenefitAmount, output }) => {
       // given - when - then
-      expect(FORMAT_MESSAGE.totalBenefitAmount(giftAmount)).toBe(output);
+      expect(FORMAT_MESSAGE.totalBenefitAmount(totalBenefitAmount)).toBe(output);
+    });
+  });
+
+  describe('eventBadge 테스트', () => {
+    test.each([
+      {
+        description: '입력이 "산타"인 경우 그대로 산타를 반환한다.',
+        input: '산타',
+        output: '산타',
+      },
+      {
+        description: '입력 값이 null인 경우 "없음"을 반환한다.',
+        input: null,
+        output: OUTPUT_MESSAGE.nothing,
+      },
+    ])('$description', ({ input: eventBadge, output }) => {
+      // given - when - then
+      expect(FORMAT_MESSAGE.eventBadge(eventBadge)).toBe(output);
     });
   });
 });
