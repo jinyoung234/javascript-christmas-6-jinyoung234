@@ -10,7 +10,7 @@ const PromotionReceipt = Object.freeze({
    * @param {import('../../utils/jsDoc.js').CreateBenefitAmountInfoParams} params - 혜택 정보 및 총 주문 금액이 들어있는 객체
    * @returns {import('../../utils/jsDoc.js').PromotionReceipt} 총 혜택 금액 및 예상 지출 금액
    */
-  receive({ promotionBenefitResult, totalOrderAmount }) {
+  issue({ promotionBenefitResult, totalOrderAmount }) {
     const totalBenefitAmount = calculateBenefitAmount(promotionBenefitResult);
     const expectPaymentAmount = calculateExpectedPayment({
       promotionBenefitResult,

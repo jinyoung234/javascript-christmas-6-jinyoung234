@@ -27,7 +27,7 @@ describe('총 혜택 금액 및 예상 지출 금액 계산 테스트', () => {
       '총 혜택 금액은 $expectedTotalBenefitAmount원 이다.',
       ({ promotionBenefitResult, totalOrderAmount, expectedTotalBenefitAmount }) => {
         // given - when
-        const { totalBenefitAmount } = PromotionReceipt.receive({
+        const { totalBenefitAmount } = PromotionReceipt.issue({
           promotionBenefitResult,
           totalOrderAmount,
         });
@@ -64,7 +64,7 @@ describe('총 혜택 금액 및 예상 지출 금액 계산 테스트', () => {
       '예상 결제 금액은 $expectedExpectPaymentAmount원 이다.',
       ({ promotionBenefitResult, totalOrderAmount, expectedExpectPaymentAmount }) => {
         // given - when
-        const { expectPaymentAmount } = PromotionReceipt.receive({
+        const { expectPaymentAmount } = PromotionReceipt.issue({
           promotionBenefitResult,
           totalOrderAmount,
         });

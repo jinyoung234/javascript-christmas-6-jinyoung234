@@ -16,7 +16,7 @@ const PromotionResultService = {
 
     const promotionBenefitResult = DecemberPromotionPlan.execute(ordererInfo);
 
-    const promotionReceipt = PromotionReceipt.receive({
+    const promotionReceipt = PromotionReceipt.issue({
       promotionBenefitResult,
       totalOrderAmount,
     });
