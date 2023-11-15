@@ -28,7 +28,6 @@ export const OUTPUT_MESSAGE = Object.freeze({
     giftAmount: '증정 이벤트',
   }),
 
-  // TODO: OUTPUT_MESSAGE가 아닌 FORMAT_MESSAGE로 분리 후 OutputView에 있는 조건식이랑 엮기
   nothing: '없음',
 
   gift: '샴페인 1개',
