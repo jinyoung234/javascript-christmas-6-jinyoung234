@@ -1,16 +1,16 @@
 import MenuSearcher from '../MenuSearcher/module.js';
 
 /**
- * @module OrderTotalAmount
+ * @module OrderMenuAmount
  * 주문 총액과 관련된 모듈
  */
-const OrderTotalAmount = Object.freeze({
+const OrderMenuAmount = Object.freeze({
   /**
    *
    * @param {[string, number][]} menuInfo - 메뉴 이름, 주문 수량이 있는 객체
    * @returns {number} 총 주문 금액
    */
-  calculate(menuInfo) {
+  calculateTotal(menuInfo) {
     return menuInfo.reduce((prevTotalAmount, [menuItemName, quantity]) => {
       const matchingMenu = MenuSearcher.findByMenuName(menuItemName);
 
@@ -19,4 +19,4 @@ const OrderTotalAmount = Object.freeze({
   },
 });
 
-export default OrderTotalAmount;
+export default OrderMenuAmount;

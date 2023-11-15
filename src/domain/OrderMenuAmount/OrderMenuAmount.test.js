@@ -1,4 +1,4 @@
-import OrderTotalAmount from './module.js';
+import OrderMenuAmount from './module.js';
 
 describe('총 주문 금액 계산 테스트', () => {
   test.each([
@@ -25,7 +25,7 @@ describe('총 주문 금액 계산 테스트', () => {
     '메뉴 정보를 통해 할인 전 주문한 총 금액은 $expected원 이어야 한다',
     ({ menuInfo, expected }) => {
       // given - when
-      const result = OrderTotalAmount.calculate(menuInfo);
+      const result = OrderMenuAmount.calculateTotal(menuInfo);
 
       // then
       expect(result).toBe(expected);

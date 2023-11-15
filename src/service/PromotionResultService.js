@@ -1,6 +1,6 @@
 import {
   PromotionReceipt,
-  OrderTotalAmount,
+  OrderMenuAmount,
   EventBadge,
   PromotionBenefitResult,
 } from '../domain/index.js';
@@ -11,7 +11,7 @@ const PromotionResultService = {
    * @returns {import('../utils/jsDoc.js').PromotionResult} 이벤트 결과
    */
   createPromotionResult({ visitDate, menuInfo }) {
-    const totalOrderAmount = OrderTotalAmount.calculate(menuInfo);
+    const totalOrderAmount = OrderMenuAmount.calculateTotal(menuInfo);
     const ordererInfo = { visitDate, totalOrderAmount, menuInfo };
 
     const promotionBenefitResult = PromotionBenefitResult.receive(ordererInfo);
