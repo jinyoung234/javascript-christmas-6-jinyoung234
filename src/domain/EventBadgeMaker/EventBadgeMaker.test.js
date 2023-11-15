@@ -1,4 +1,4 @@
-import EventBadge from './module.js';
+import EventBadgeMaker from './module.js';
 
 describe('이벤트 뱃지 생성 테스트', () => {
   test.each([
@@ -13,7 +13,7 @@ describe('이벤트 뱃지 생성 테스트', () => {
     '보상금액 $totalBenefitAmount원에 대한 배지는 $expectedBadge 여야 한다',
     ({ totalBenefitAmount, expectedBadge }) => {
       // given - when
-      const badge = EventBadge.generate(totalBenefitAmount);
+      const badge = EventBadgeMaker.createByBenefitAmount(totalBenefitAmount);
 
       // then
       expect(badge === expectedBadge).toBeTruthy();

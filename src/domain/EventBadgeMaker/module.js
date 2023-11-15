@@ -4,19 +4,19 @@ import { BADGE_INFO } from './constant.js';
  * @module EventBadge
  * 이벤트 뱃지를 생성하는 모듈
  */
-const EventBadge = {
+const EventBadgeMaker = {
   /**
    * @param {number} totalBenefitAmount - 총 혜택 금액
    * @returns {import('../../utils/jsDoc.js').EventBadge | null} 혜택 금액에 해당하는 뱃지 or null
    */
-  generate(totalBenefitAmount) {
+  createByBenefitAmount(totalBenefitAmount) {
     const targetBadge = searchTargetBadges(totalBenefitAmount)?.at(-1);
 
     return targetBadge?.name ?? null;
   },
 };
 
-export default EventBadge;
+export default EventBadgeMaker;
 
 /**
  *

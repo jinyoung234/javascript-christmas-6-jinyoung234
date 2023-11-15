@@ -1,7 +1,7 @@
 import {
   PromotionReceipt,
   OrderMenuAmount,
-  EventBadge,
+  EventBadgeMaker,
   PromotionBenefitResult,
 } from '../domain/index.js';
 
@@ -20,7 +20,7 @@ const PromotionResultService = {
       totalOrderAmount,
     });
 
-    const eventBadge = EventBadge.generate(promotionReceipt.totalBenefitAmount);
+    const eventBadge = EventBadgeMaker.createByBenefitAmount(promotionReceipt.totalBenefitAmount);
 
     return { totalOrderAmount, promotionReceipt, promotionBenefitResult, eventBadge };
   },
