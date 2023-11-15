@@ -31,7 +31,6 @@ export const OUTPUT_MESSAGE = Object.freeze({
   // TODO: OUTPUT_MESSAGE가 아닌 FORMAT_MESSAGE로 분리 후 OutputView에 있는 조건식이랑 엮기
   nothing: '없음',
 
-  // TODO: OUTPUT_MESSAGE가 아닌 FORMAT_MESSAGE로 분리 후 OutputView에 있는 조건식이랑 엮기
   gift: '샴페인 1개',
 });
 
@@ -68,5 +67,9 @@ export const FORMAT_MESSAGE = Object.freeze({
         [],
       )
       .join('\n');
+  },
+
+  gift(giftAmount) {
+    return giftAmount === 0 ? OUTPUT_MESSAGE.nothing : OUTPUT_MESSAGE.gift;
   },
 });

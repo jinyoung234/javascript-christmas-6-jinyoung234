@@ -57,7 +57,7 @@ function printTotalOrderAmount(totalOrderAmount) {
  * @param {number} giftAmount - 증정 이벤트의 당첨 액수
  */
 function printGiftMenu(giftAmount) {
-  printSection(OUTPUT_MESSAGE.title.giftMenu, giftAmount !== 0 ? OUTPUT_MESSAGE.gift : null);
+  printSection(OUTPUT_MESSAGE.title.giftMenu, FORMAT_MESSAGE.gift(giftAmount));
 }
 
 /**
@@ -76,6 +76,7 @@ function printBenefitHistory(promotionBenefits) {
 function printTotalBenefitAmount(totalBenefitAmount) {
   printSection(
     OUTPUT_MESSAGE.title.totalBenefitAmount,
+    // TODO: amount 내부에 조건식을 넣기
     totalBenefitAmount !== 0
       ? `-${FORMAT_MESSAGE.amount(totalBenefitAmount)}`
       : `${FORMAT_MESSAGE.amount(0)}`,
@@ -107,6 +108,7 @@ function printEventBadge(eventBadge) {
 function printSection(title, content, config = { newLine: true }) {
   Console.print(FORMAT_MESSAGE.title(config, title));
 
+  // TODO: 조건식 내부에 넣어서 FORMAT_MESSAGE로 분리
   if (content) Console.print(content);
 
   if (!content) Console.print(OUTPUT_MESSAGE.nothing);
