@@ -16,7 +16,7 @@ describe('메뉴 찾기 테스트', () => {
       { menuName: '제로콜라', category: '음료', expectedMenu: { name: '제로콜라', price: 3000 } },
       { menuName: '초코케이크', category: '음료', expectedMenu: undefined },
     ])(
-      '메뉴 이름 $menuName과 카테고리 $category로 메뉴를 찾으면 $expectedMenu를 반환해야 한다',
+      '메뉴 이름이 $menuName이고, 카테고리가 $category일 경우 검색 결과는 $expectedMenu 이다.',
       ({ menuName, category, expectedMenu }) => {
         // given - when
         const menu = MenuSearcher.findByMenuName(menuName, category);
@@ -34,7 +34,7 @@ describe('메뉴 찾기 테스트', () => {
       { menuName: '제로콜라', category: '음료', expectedResult: true },
       { menuName: '초코케이크', category: '음료', expectedResult: false },
     ])(
-      '$menuName가 $category 카테고리에 속하는지 확인하면 $expectedResult를 반환해야 한다',
+      '메뉴 이름이 $menuName이고, 카테고리가 $category일 때, 실행 결과는 $expectedResult 이다.',
       ({ menuName, category, expectedResult }) => {
         // given - when
         const result = MenuSearcher.isMenuInCategory(menuName, category);
