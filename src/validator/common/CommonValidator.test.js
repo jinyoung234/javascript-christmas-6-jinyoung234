@@ -1,7 +1,7 @@
 import AppError from '../../errors/AppError/module.js';
 import CommonValidator from './CommonValidator.js';
 
-describe('validateCommon 테스트', () => {
+describe('공통 유효성 검사 테스트', () => {
   const startValidation = (inputValue) => () => CommonValidator.check(inputValue);
   describe('예외 테스트', () => {
     test.each([

@@ -1,7 +1,7 @@
 import AppError from '../../errors/AppError/module';
 import { VisitDateValidator } from '..';
 
-describe('VisitDateValidator 테스트', () => {
+describe('방문 날짜 유효성 검사 테스트', () => {
   const startVisitDateValidator = (visitDate) => () => VisitDateValidator.check(visitDate);
 
   describe('예외 테스트', () => {

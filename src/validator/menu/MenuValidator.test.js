@@ -2,7 +2,7 @@ import AppError from '../../errors/AppError/module';
 import { MenuValidator } from '..';
 import { INVALID_MENU_MESSAGE } from './constant';
 
-describe('MenuValidator 테스트', () => {
+describe('메뉴 관련 유효성 검사 테스트', () => {
   const startMenuValidator = (orders) => () => MenuValidator.check(orders);
 
   describe('예외 테스트', () => {
