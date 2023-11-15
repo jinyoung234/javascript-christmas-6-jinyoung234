@@ -2,7 +2,7 @@ import {
   PromotionReceipt,
   OrderMenuAmount,
   EventBadgeMaker,
-  PromotionBenefitResult,
+  DecemberPromotionPlan,
 } from '../domain/index.js';
 
 const PromotionResultService = {
@@ -14,7 +14,8 @@ const PromotionResultService = {
     const totalOrderAmount = OrderMenuAmount.calculateTotal(menuInfo);
     const ordererInfo = { visitDate, totalOrderAmount, menuInfo };
 
-    const promotionBenefitResult = PromotionBenefitResult.receive(ordererInfo);
+    const promotionBenefitResult = DecemberPromotionPlan.execute(ordererInfo);
+
     const promotionReceipt = PromotionReceipt.receive({
       promotionBenefitResult,
       totalOrderAmount,

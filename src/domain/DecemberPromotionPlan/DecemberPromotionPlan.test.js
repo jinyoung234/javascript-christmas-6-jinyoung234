@@ -1,10 +1,10 @@
 import { PROMOTION_DATE_INFO } from '../../constants/promotionSystem';
 import { BENEFIT_AMOUNT_INFO, MINIMUM_ORDER_AMOUNT_FOR_GIFT } from './constant';
-import PromotionBenefitResult from './module';
+import DecemberPromotionPlan from './module';
 
 describe('프로모션 내 혜택 내역 계산 테스트', () => {
   // given
-  const createBenefitResult = (ordererInfo) => PromotionBenefitResult.receive(ordererInfo);
+  const createBenefitResult = (ordererInfo) => DecemberPromotionPlan.execute(ordererInfo);
 
   const createOrdererInfoTestCase = ({
     visitDate = 3,

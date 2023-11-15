@@ -12,15 +12,15 @@ import {
 } from './constant.js';
 
 /**
- * @module PromotionBenefitResult
- * 다양한 프로모션 조건(크리스마스, 주말/평일 할인, 특별 이벤트 및 증정 행사)에 기반한 할인 및 혜택을 계산하는 모듈
+ * @module DecemberPromotionPlan
+ * 12월의 프로모션 계획 들을(크리스마스, 주말/평일 할인, 특별 이벤트 및 증정 행사)통해 할인 혜택 들을 계산하는 모듈
  */
-const PromotionBenefitResult = Object.freeze({
+const DecemberPromotionPlan = Object.freeze({
   /**
    * @param {import('../../utils/jsDoc.js').OrdererInfo} ordererInfo - 주문자 정보(방문 일자, 총 주문 금액, 주문한 메뉴 정보)
    * @returns {import('../../utils/jsDoc.js').PromotionBenefitResult} 각 혜택 금액 정보
    */
-  receive({ visitDate, totalOrderAmount, menuInfo }) {
+  execute({ visitDate, totalOrderAmount, menuInfo }) {
     const { startDate, endDate } = BENEFIT_DATE_INFO;
     const formatVisitDate = formatVisitDateForPromotion(visitDate);
 
@@ -34,7 +34,7 @@ const PromotionBenefitResult = Object.freeze({
   },
 });
 
-export default PromotionBenefitResult;
+export default DecemberPromotionPlan;
 
 /**
  * @param {number} visitDate - 방문 일자
