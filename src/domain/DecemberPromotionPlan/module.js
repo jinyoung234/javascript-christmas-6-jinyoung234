@@ -13,7 +13,7 @@ import {
 
 /**
  * @module DecemberPromotionPlan
- * 12월의 프로모션 계획 들을(크리스마스, 주말/평일 할인, 특별 이벤트 및 증정 행사)통해 할인 혜택 들을 계산하는 모듈
+ * 12월의 프로모션 계획 들을(크리스마스, 주말/평일 할인, 특별 이벤트 및 증정 행사)통해 할인 혜택 들을 제공 하는 모듈
  */
 const DecemberPromotionPlan = Object.freeze({
   /**

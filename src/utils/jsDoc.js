@@ -61,11 +61,7 @@
  */
 
 /**
- * @typedef {{ordererInfo : {visitDate : Date, menuInfo : [string, number][]}} & DayOfWeekBenefitCondition} CalculateDiscountForDayTypeParams
- */
-
-/**
- * @typedef {{promotionBenefitResult : PromotionBenefitResult, totalOrderAmount : number}} CreateBenefitAmountInfoParams
+ * @typedef {{ordererInfo : {visitDate : Date, menuInfo : [string, number][]}} & DayOfWeekBenefitCondition} CalculateBenefitForDayTypeParams
  */
 
 /**

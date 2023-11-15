@@ -7,7 +7,7 @@ import { addCalculation } from '../../utils/number.js';
 const PromotionReceipt = Object.freeze({
   /**
    *
-   * @param {import('../../utils/jsDoc.js').CreateBenefitAmountInfoParams} params - 혜택 정보 및 총 주문 금액이 들어있는 객체
+   * @param {{promotionBenefitResult : import('../../utils/jsDoc.js').PromotionBenefitResult, totalOrderAmount : number}} params - 혜택 정보 및 총 주문 금액이 들어있는 객체
    * @returns {import('../../utils/jsDoc.js').PromotionReceipt} 총 혜택 금액 및 예상 지출 금액
    */
   issue({ promotionBenefitResult, totalOrderAmount }) {
