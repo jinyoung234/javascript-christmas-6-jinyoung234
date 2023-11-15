@@ -76,9 +76,7 @@ function printBenefitHistory(promotionBenefits) {
 function printTotalBenefitAmount(totalBenefitAmount) {
   printSection(
     OUTPUT_MESSAGE.title.totalBenefitAmount,
-    totalBenefitAmount !== 0
-      ? `-${FORMAT_MESSAGE.amount(totalBenefitAmount)}`
-      : `${FORMAT_MESSAGE.amount(0)}`,
+    FORMAT_MESSAGE.totalBenefitAmount(totalBenefitAmount),
   );
 }
 
@@ -107,8 +105,5 @@ function printEventBadge(eventBadge) {
 function printSection(title, content, config = { newLine: true }) {
   Console.print(FORMAT_MESSAGE.title(config, title));
 
-  // TODO: 조건식 내부에 넣어서 FORMAT_MESSAGE로 분리
-  if (content) Console.print(content);
-
-  if (!content) Console.print(OUTPUT_MESSAGE.nothing);
+  Console.print(content);
 }

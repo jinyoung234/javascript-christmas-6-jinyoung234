@@ -71,6 +71,10 @@ export const FORMAT_MESSAGE = Object.freeze({
     );
   },
 
+  totalBenefitAmount(totalBenefitAmount) {
+    return totalBenefitAmount === 0 ? `${this.amount(0)}` : `-${this.amount(totalBenefitAmount)}`;
+  },
+
   gift(giftAmount) {
     return giftAmount === 0 ? OUTPUT_MESSAGE.nothing : OUTPUT_MESSAGE.gift;
   },
