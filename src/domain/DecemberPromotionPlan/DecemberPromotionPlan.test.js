@@ -2,13 +2,12 @@ import { PROMOTION_DATE_INFO } from '../../constants/promotionSystem';
 import { BENEFIT_AMOUNT_INFO, MINIMUM_ORDER_AMOUNT_FOR_GIFT } from './constant';
 import DecemberPromotionPlan from './module';
 
-describe('프로모션 내 혜택 내역 계산 테스트', () => {
-  // given
+describe('12월 이벤트 계획에 따른 혜택 계산 테스트', () => {
   const createBenefitResult = (ordererInfo) => DecemberPromotionPlan.execute(ordererInfo);
 
   const createOrdererInfoTestCase = ({
     visitDate = 3,
-    menuInfo = [
+    orderMenuInfo = [
       ['티본스테이크', 1],
       ['바비큐립', 1],
       ['초코케이크', 2],
@@ -17,7 +16,7 @@ describe('프로모션 내 혜택 내역 계산 테스트', () => {
     totalOrderAmount = 142000,
   } = {}) => ({
     visitDate,
-    menuInfo,
+    orderMenuInfo,
     totalOrderAmount,
   });
 
@@ -130,7 +129,7 @@ describe('프로모션 내 혜택 내역 계산 테스트', () => {
         description: `88000원은 ${MINIMUM_ORDER_AMOUNT_FOR_GIFT}만원 미만이므로 샴페인이 증정되지 않는다.`,
         ordererInfo: {
           visitDate: 2,
-          menuInfo: [
+          orderMenuInfo: [
             ['티본스테이크', 1],
             ['초코케이크', 2],
             ['제로콜라', 1],

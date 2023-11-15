@@ -42,7 +42,7 @@
  * @typedef {object} OrdererInfo
  * @property {number | Date} visitDate - 방문 일
  * @property {number} totalOrderAmount - 총 주문 금액
- * @property {[string, number][]} menuInfo - 주문한 메뉴 정보
+ * @property {[string, number][]} orderMenuInfo - 주문한 메뉴 정보
  */
 
 /**
@@ -61,7 +61,7 @@
  */
 
 /**
- * @typedef {{ordererInfo : {visitDate : Date, menuInfo : [string, number][]}} & DayOfWeekBenefitCondition} CalculateBenefitForDayTypeParams
+ * @typedef {{ordererInfo : {visitDate : Date, orderMenuInfo : [string, number][]}} & DayOfWeekBenefitCondition} CalculateBenefitForDayTypeParams
  */
 
 /**
@@ -75,7 +75,7 @@
  */
 
 /**
- * @typedef {{menuInfo : [string, number][], promotionResult : PromotionResult}} PrintPromotionResultParams
+ * @typedef {{orderMenuInfo : [string, number][], promotionResult : PromotionResult}} PrintPromotionResultParams
  */
 
 /**

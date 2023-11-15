@@ -47,8 +47,8 @@ export const FORMAT_MESSAGE = Object.freeze({
     return `${config.newLine ? '\n' : SYMBOLS.emptyString}<${title}>`;
   },
 
-  orderMenus(menuInfo) {
-    return menuInfo
+  orderMenus(orderMenuInfo) {
+    return orderMenuInfo
       .map(([menuName, quantity]) => `${menuName} ${quantity}개\n`)
       .join(SYMBOLS.emptyString);
   },

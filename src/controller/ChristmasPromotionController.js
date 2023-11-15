@@ -12,33 +12,38 @@ const ChristmasPromotionController = {
    * @returns {Promise<void>}
    */
   async play() {
-    const { visitDate, menuInfo } = await processUserInput();
+    const { visitDate, orderMenuInfo } = await processUserInput();
 
-    processPromotionResult({ visitDate, menuInfo });
+    processPromotionResult({ visitDate, orderMenuInfo });
   },
 };
 
 /**
- * @returns {Promise<{visitDate : number, menuInfo : [string, number][]}>} 유저가 입력한 방문 일자 및 메뉴 정보를 반환할 Promise 객체
+ * @returns {Promise<{visitDate : number, orderMenuInfo : [string, number][]}>} 유저가 입력한 방문 일자 및 메뉴 정보를 반환할 Promise 객체
  */
 async function processUserInput() {
   OutputView.printStartGuideComments();
 
   const visitDate = await ErrorHandler.retryOnErrors(InputView.readVisitDate.bind(InputView));
-  const menuInfo = await ErrorHandler.retryOnErrors(InputView.readOrderMenuInfo.bind(InputView));
+  const orderMenuInfo = await ErrorHandler.retryOnErrors(
+    InputView.readOrderMenuInfo.bind(InputView),
+  );
 
-  return { visitDate, menuInfo };
+  return { visitDate, orderMenuInfo };
 }
 
 /**
  * @param {{visitDate : number, menuInfo : [string, number][]}} params - 유저가 입력한 방문 일자 및 메뉴 정보
  * @returns {void}
  */
-function processPromotionResult({ visitDate, menuInfo }) {
-  const promotionResult = PromotionResultService.createPromotionResult({ visitDate, menuInfo });
+function processPromotionResult({ visitDate, orderMenuInfo }) {
+  const promotionResult = PromotionResultService.createPromotionResult({
+    visitDate,
+    orderMenuInfo,
+  });
 
   OutputView.printEndGuideComments(visitDate);
-  OutputView.printPromotionResult({ menuInfo, promotionResult });
+  OutputView.printPromotionResult({ orderMenuInfo, promotionResult });
 }
 
 export default ChristmasPromotionController;

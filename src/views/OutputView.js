@@ -21,10 +21,10 @@ const OutputView = {
    * @param {import('../utils/jsDoc.js').PrintPromotionResultParams} params - 주문한 메뉴 정보 및 이벤트 결과에 대한 정보가 담긴 객체
    */
   printPromotionResult({
-    menuInfo,
+    orderMenuInfo,
     promotionResult: { totalOrderAmount, promotionReceipt, promotionBenefitResult, eventBadge },
   }) {
-    printOrderMenu(menuInfo);
+    printOrderMenu(orderMenuInfo);
     printTotalOrderAmount(totalOrderAmount);
 
     printGiftMenu(promotionBenefitResult.giftAmount);
@@ -38,10 +38,10 @@ const OutputView = {
 export default OutputView;
 
 /**
- * @param {[string, number][]} menuInfo - 주문한 메뉴 정보
+ * @param {[string, number][]} orderMenuInfo - 주문한 메뉴 정보
  */
-function printOrderMenu(menuInfo) {
-  printSection(OUTPUT_MESSAGE.title.orderMenu, FORMAT_MESSAGE.orderMenus(menuInfo));
+function printOrderMenu(orderMenuInfo) {
+  printSection(OUTPUT_MESSAGE.title.orderMenu, FORMAT_MESSAGE.orderMenus(orderMenuInfo));
 }
 
 /**

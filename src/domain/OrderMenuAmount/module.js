@@ -7,11 +7,11 @@ import MenuSearcher from '../MenuSearcher/module.js';
 const OrderMenuAmount = Object.freeze({
   /**
    *
-   * @param {[string, number][]} menuInfo - 메뉴 이름, 주문 수량이 있는 객체
+   * @param {[string, number][]} orderMenuInfo - 메뉴 이름, 주문 수량이 있는 객체
    * @returns {number} 총 주문 금액
    */
-  calculateTotal(menuInfo) {
-    return menuInfo.reduce((prevTotalAmount, [menuItemName, quantity]) => {
+  calculateTotal(orderMenuInfo) {
+    return orderMenuInfo.reduce((prevTotalAmount, [menuItemName, quantity]) => {
       const matchingMenu = MenuSearcher.findByMenuName(menuItemName);
 
       return prevTotalAmount + (matchingMenu?.price ?? 0) * quantity;

@@ -7,12 +7,12 @@ import {
 
 const PromotionResultService = {
   /**
-   * @param {{visitDate : number, menuInfo: [string, number][]}} params - 방문 일자 및 주문한 메뉴 정보가 담긴 객체
+   * @param {{visitDate : number, orderMenuInfo: [string, number][]}} params - 방문 일자 및 주문한 메뉴 정보가 담긴 객체
    * @returns {import('../utils/jsDoc.js').PromotionResult} 이벤트 결과
    */
-  createPromotionResult({ visitDate, menuInfo }) {
-    const totalOrderAmount = OrderMenuAmount.calculateTotal(menuInfo);
-    const ordererInfo = { visitDate, totalOrderAmount, menuInfo };
+  createPromotionResult({ visitDate, orderMenuInfo }) {
+    const totalOrderAmount = OrderMenuAmount.calculateTotal(orderMenuInfo);
+    const ordererInfo = { visitDate, totalOrderAmount, orderMenuInfo };
 
     const promotionBenefitResult = DecemberPromotionPlan.execute(ordererInfo);
 
