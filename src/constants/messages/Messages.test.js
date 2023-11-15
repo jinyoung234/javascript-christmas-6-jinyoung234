@@ -42,7 +42,7 @@ describe('메시지 포맷 테스트', () => {
           '크리스마스 디데이 할인: -1,200원\n평일 할인: -4,046원\n특별 할인: -1,000원\n증정 이벤트: -25,000원',
       },
       {
-        description: '프로모션 혜택이 모두 0원인 경우 결과는 "없음"이다.',
+        description: `프로모션 혜택이 모두 0원인 경우 결과는 "${OUTPUT_MESSAGE.nothing}"이다.`,
         input: {
           xmasBenefitAmount: 0,
           weekendBenefitAmount: 0,
@@ -50,7 +50,7 @@ describe('메시지 포맷 테스트', () => {
           specialBenefitAmount: 0,
           giftAmount: 0,
         },
-        output: '없음',
+        output: OUTPUT_MESSAGE.nothing,
       },
     ])('$description', ({ input, output }) => {
       // given - when - then
@@ -84,9 +84,9 @@ describe('메시지 포맷 테스트', () => {
         output: '샴페인 1개',
       },
       {
-        description: 'giftAmount가 없는 경우 샴페인이 증정되지 않고 "없음"을 반환한다.',
+        description: `giftAmount가 없는 경우 샴페인이 증정되지 않고 "${OUTPUT_MESSAGE.nothing}"을 반환한다.`,
         input: 0,
-        output: '없음',
+        output: OUTPUT_MESSAGE.nothing,
       },
     ])('$description', ({ input: giftAmount, output }) => {
       // given - when - then
@@ -120,7 +120,7 @@ describe('메시지 포맷 테스트', () => {
         output: '산타',
       },
       {
-        description: '입력 값이 null인 경우 "없음"을 반환한다.',
+        description: `입력 값이 null인 경우 "${OUTPUT_MESSAGE.nothing}"을 반환한다.`,
         input: null,
         output: OUTPUT_MESSAGE.nothing,
       },
