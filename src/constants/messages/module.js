@@ -1,4 +1,5 @@
 import { PROMOTION_DATE_INFO } from '../promotionSystem.js';
+import { SYMBOLS } from '../symbols.js';
 
 export const INPUT_MESSAGE = Object.freeze({
   visitDate: `${PROMOTION_DATE_INFO.month}월 중 식당 예상 방문 날짜는 언제인가요? (숫자만 입력해 주세요!)\n`,
@@ -27,8 +28,10 @@ export const OUTPUT_MESSAGE = Object.freeze({
     giftAmount: '증정 이벤트',
   }),
 
+  // TODO: OUTPUT_MESSAGE가 아닌 FORMAT_MESSAGE로 분리 후 OutputView에 있는 조건식이랑 엮기
   nothing: '없음',
 
+  // TODO: OUTPUT_MESSAGE가 아닌 FORMAT_MESSAGE로 분리 후 OutputView에 있는 조건식이랑 엮기
   gift: '샴페인 1개',
 });
 
@@ -42,11 +45,13 @@ export const FORMAT_MESSAGE = Object.freeze({
   },
 
   title(config, title) {
-    return `${config.newLine ? '\n' : ''}<${title}>`;
+    return `${config.newLine ? '\n' : SYMBOLS.emptyString}<${title}>`;
   },
 
   orderMenus(menuInfo) {
-    return menuInfo.map(([menuName, quantity]) => `${menuName} ${quantity}개\n`).join('');
+    return menuInfo
+      .map(([menuName, quantity]) => `${menuName} ${quantity}개\n`)
+      .join(SYMBOLS.emptyString);
   },
 
   amount(amount) {
