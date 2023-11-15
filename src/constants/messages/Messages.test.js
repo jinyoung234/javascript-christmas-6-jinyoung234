@@ -42,7 +42,17 @@ describe('메시지 포맷 테스트', () => {
         output:
           '크리스마스 디데이 할인: -1,200원\n평일 할인: -4,046원\n특별 할인: -1,000원\n증정 이벤트: -25,000원',
       },
-      // TODO: 모두 0원인 case 추가
+      {
+        description: '프로모션 혜택이 모두 0원인 경우 결과는 "없음"이다.',
+        input: {
+          xmasBenefitAmount: 0,
+          weekendBenefitAmount: 0,
+          weekDayBenefitAmount: 0,
+          specialBenefitAmount: 0,
+          giftAmount: 0,
+        },
+        output: '없음',
+      },
     ])('$description', ({ input, output }) => {
       // given - when - then
       expect(FORMAT_MESSAGE.benefitHistory(input)).toBe(output);
