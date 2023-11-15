@@ -58,15 +58,17 @@ export const FORMAT_MESSAGE = Object.freeze({
   },
 
   benefitHistory(benefitInfo) {
-    return Object.entries(benefitInfo)
-      .reduce(
-        (acc, [benefitName, amount]) =>
-          amount !== 0
-            ? [...acc, `${OUTPUT_MESSAGE.benefitLabels[benefitName]}: -${this.amount(amount)}`]
-            : acc,
-        [],
-      )
-      .join('\n');
+    return (
+      Object.entries(benefitInfo)
+        .reduce(
+          (acc, [benefitName, amount]) =>
+            amount !== 0
+              ? [...acc, `${OUTPUT_MESSAGE.benefitLabels[benefitName]}: -${this.amount(amount)}`]
+              : acc,
+          [],
+        )
+        .join('\n') || OUTPUT_MESSAGE.nothing
+    );
   },
 
   gift(giftAmount) {

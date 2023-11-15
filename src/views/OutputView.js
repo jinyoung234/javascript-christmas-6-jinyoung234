@@ -66,7 +66,7 @@ function printGiftMenu(giftAmount) {
 function printBenefitHistory(promotionBenefits) {
   printSection(
     OUTPUT_MESSAGE.title.benefitHistory,
-    FORMAT_MESSAGE.benefitHistory(promotionBenefits) || null,
+    FORMAT_MESSAGE.benefitHistory(promotionBenefits),
   );
 }
 
